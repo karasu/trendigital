@@ -1,0 +1,35 @@
+#ifndef EDITLOKOS_H
+#define EDITLOKOS_H
+
+#include <QDialog>
+#include <QMap>
+#include <QSettings>
+
+class Loko;
+
+namespace Ui {
+    class EditLokos;
+}
+
+class EditLokos : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit EditLokos(QWidget *parent = 0);
+    ~EditLokos();
+
+    void FillTreeWidget(QMap<int,Loko*> lokosMap);
+
+    void saveSettings(void);
+
+    QMap <int,Loko *> lokos;
+
+    void accept(void);
+
+private:
+    Ui::EditLokos *ui;
+
+};
+
+#endif // EDITLOKOS_H

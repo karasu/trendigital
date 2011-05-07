@@ -1,0 +1,164 @@
+#include "lokotabbar.h"
+#include "ui_lokotabbar.h"
+
+#include "lokodock.h"
+
+LokoTabBar::LokoTabBar(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::LokoTabBar)
+{
+    ui->setupUi(this);
+
+    setupButtons();
+
+    ui->LokoTab->setCurrentIndex(0);
+}
+
+void LokoTabBar::closeEvent(QCloseEvent *event)
+{
+    event->accept();
+}
+
+
+LokoTabBar::~LokoTabBar()
+{
+    buttons.clear();
+    delete ui;
+}
+
+void LokoTabBar::setupButtons()
+{
+    buttons.append(ui->pushButton_1);
+    buttons.append(ui->pushButton_2);
+    buttons.append(ui->pushButton_3);
+    buttons.append(ui->pushButton_4);
+    buttons.append(ui->pushButton_5);
+    buttons.append(ui->pushButton_6);
+    buttons.append(ui->pushButton_7);
+    buttons.append(ui->pushButton_8);
+    buttons.append(ui->pushButton_9);
+    buttons.append(ui->pushButton_10);
+    buttons.append(ui->pushButton_11);
+    buttons.append(ui->pushButton_12);
+    buttons.append(ui->pushButton_13);
+    buttons.append(ui->pushButton_14);
+    buttons.append(ui->pushButton_15);
+    buttons.append(ui->pushButton_16);
+    buttons.append(ui->pushButton_17);
+    buttons.append(ui->pushButton_18);
+    buttons.append(ui->pushButton_19);
+    buttons.append(ui->pushButton_20);
+    buttons.append(ui->pushButton_21);
+    buttons.append(ui->pushButton_22);
+    buttons.append(ui->pushButton_23);
+    buttons.append(ui->pushButton_24);
+    buttons.append(ui->pushButton_25);
+    buttons.append(ui->pushButton_26);
+    buttons.append(ui->pushButton_27);
+    buttons.append(ui->pushButton_28);
+    buttons.append(ui->pushButton_29);
+    buttons.append(ui->pushButton_30);
+    buttons.append(ui->pushButton_31);
+    buttons.append(ui->pushButton_32);
+    buttons.append(ui->pushButton_33);
+    buttons.append(ui->pushButton_34);
+    buttons.append(ui->pushButton_35);
+    buttons.append(ui->pushButton_36);
+    buttons.append(ui->pushButton_37);
+    buttons.append(ui->pushButton_38);
+    buttons.append(ui->pushButton_39);
+    buttons.append(ui->pushButton_40);
+    buttons.append(ui->pushButton_41);
+    buttons.append(ui->pushButton_42);
+    buttons.append(ui->pushButton_43);
+    buttons.append(ui->pushButton_44);
+    buttons.append(ui->pushButton_45);
+    buttons.append(ui->pushButton_46);
+    buttons.append(ui->pushButton_47);
+    buttons.append(ui->pushButton_48);
+    buttons.append(ui->pushButton_49);
+    buttons.append(ui->pushButton_50);
+    buttons.append(ui->pushButton_51);
+    buttons.append(ui->pushButton_52);
+    buttons.append(ui->pushButton_53);
+    buttons.append(ui->pushButton_54);
+    buttons.append(ui->pushButton_55);
+    buttons.append(ui->pushButton_56);
+    buttons.append(ui->pushButton_57);
+    buttons.append(ui->pushButton_58);
+    buttons.append(ui->pushButton_59);
+    buttons.append(ui->pushButton_60);
+    buttons.append(ui->pushButton_61);
+    buttons.append(ui->pushButton_62);
+    buttons.append(ui->pushButton_63);
+    buttons.append(ui->pushButton_64);
+    buttons.append(ui->pushButton_65);
+    buttons.append(ui->pushButton_66);
+    buttons.append(ui->pushButton_67);
+    buttons.append(ui->pushButton_68);
+    buttons.append(ui->pushButton_69);
+    buttons.append(ui->pushButton_70);
+    buttons.append(ui->pushButton_71);
+    buttons.append(ui->pushButton_72);
+    buttons.append(ui->pushButton_73);
+    buttons.append(ui->pushButton_74);
+    buttons.append(ui->pushButton_75);
+    buttons.append(ui->pushButton_76);
+    buttons.append(ui->pushButton_77);
+    buttons.append(ui->pushButton_78);
+    buttons.append(ui->pushButton_79);
+    buttons.append(ui->pushButton_80);
+    buttons.append(ui->pushButton_81);
+    buttons.append(ui->pushButton_82);
+    buttons.append(ui->pushButton_83);
+    buttons.append(ui->pushButton_84);
+    buttons.append(ui->pushButton_85);
+    buttons.append(ui->pushButton_86);
+    buttons.append(ui->pushButton_87);
+    buttons.append(ui->pushButton_88);
+    buttons.append(ui->pushButton_89);
+    buttons.append(ui->pushButton_90);
+    buttons.append(ui->pushButton_91);
+    buttons.append(ui->pushButton_92);
+    buttons.append(ui->pushButton_93);
+    buttons.append(ui->pushButton_94);
+    buttons.append(ui->pushButton_95);
+    buttons.append(ui->pushButton_96);
+    buttons.append(ui->pushButton_97);
+    buttons.append(ui->pushButton_98);
+    buttons.append(ui->pushButton_99);
+    buttons.append(ui->pushButton_100);
+
+    for (int i = 0; i < buttons.size(); ++i)
+    {
+        connect(buttons[i], SIGNAL(clicked()), this, SLOT(onButtonClicked()));
+    }
+}
+
+void LokoTabBar::onButtonClicked()
+{
+    QPushButton *pSender = qobject_cast<QPushButton *>(sender());
+
+    // pSender->setDisabled(true);
+
+    // QString buttonName(nom, pSender->name());
+
+    int index=-1;
+
+    for (int i=0; i<buttons.size(); ++i)
+    {
+        if (buttons.at(i) == pSender)
+        {
+            index = i;
+        }
+    }
+
+    if (index >= 0)
+    {
+        if (index >= docks.size())
+        {
+            docks.append(new LokoDock(this->parentWidget()));
+        }
+        docks[index]->show();
+    }
+}

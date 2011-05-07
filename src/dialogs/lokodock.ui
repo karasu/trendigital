@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>LokoDock</class>
+ <widget class="QDialog" name="LokoDock">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>172</width>
+    <height>252</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Lok Control</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../icons.qrc">
+    <normaloff>:/images/icons/tren-digital.png</normaloff>:/images/icons/tren-digital.png</iconset>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetFixedSize</enum>
+   </property>
+   <property name="margin">
+    <number>6</number>
+   </property>
+   <item row="2" column="0">
+    <widget class="QLabel" name="speedLabel">
+     <property name="text">
+      <string>Velocitat</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="lightButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../../bitmaps.qrc">
+       <normaloff>:/images/bitmaps/Luz.png</normaloff>:/images/bitmaps/Luz.png</iconset>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="2">
+    <widget class="QPushButton" name="pushButton">
+     <property name="minimumSize">
+      <size>
+       <width>160</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="iconSize">
+      <size>
+       <width>90</width>
+       <height>58</height>
+      </size>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="8" column="0" colspan="2">
+    <widget class="QGroupBox" name="functionGroupBox">
+     <property name="minimumSize">
+      <size>
+       <width>160</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <widget class="QPushButton" name="f1">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f1</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f11">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>30</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f11</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f7">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>0</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f7</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f9">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>30</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f9</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>0</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f2</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f8">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>0</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f8</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f6">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>0</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f6</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f5">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>0</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f5</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f3">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>0</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f3</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f4">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>0</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f4</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f12">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>30</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f12</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f10">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f10</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f13">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>30</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f13</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f14">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>30</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f14</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f15">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>30</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f15</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="f16">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>30</y>
+        <width>21</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>f16</string>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QSpinBox" name="spinBox"/>
+   </item>
+   <item row="5" column="1">
+    <widget class="QPushButton" name="functionsButton">
+     <property name="text">
+      <string>F</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QPushButton" name="directionButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>&lt;&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QPushButton" name="stopButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="icon">
+      <iconset resource="../../icons.qrc">
+       <normaloff>:/images/icons/dialog-warning.png</normaloff>:/images/icons/dialog-warning.png</iconset>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../bitmaps.qrc"/>
+  <include location="../../icons.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>functionsButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>functionGroupBox</receiver>
+   <slot>setVisible(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>108</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>99</x>
+     <y>156</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

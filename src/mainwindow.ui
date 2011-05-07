@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>640</width>
+    <height>569</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Tren Digital</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../icons.qrc">
+    <normaloff>:/images/icons/tren-digital.png</normaloff>:/images/icons/tren-digital.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="View" name="graphicsView"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>640</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArxiu">
+    <property name="title">
+     <string>&amp;Arxiu</string>
+    </property>
+    <addaction name="actionNou"/>
+    <addaction name="actionObrir"/>
+    <addaction name="actionGuardar"/>
+    <addaction name="actionGuardar_com"/>
+    <addaction name="separator"/>
+    <addaction name="actionConfigurar_impresora"/>
+    <addaction name="actionConfigurar_sistema"/>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionSortir"/>
+   </widget>
+   <widget class="QMenu" name="menuEdici">
+    <property name="title">
+     <string>&amp;Edició</string>
+    </property>
+    <addaction name="actionLocomotores"/>
+    <addaction name="actionProgrames_i_rutes"/>
+    <addaction name="separator"/>
+    <addaction name="actionInsertar_text"/>
+   </widget>
+   <widget class="QMenu" name="menuVeure">
+    <property name="title">
+     <string>&amp;Veure</string>
+    </property>
+    <addaction name="actionBarra_eines"/>
+    <addaction name="actionBarra_estat"/>
+    <addaction name="actionBarra_locomotores"/>
+    <addaction name="separator"/>
+    <addaction name="actionMode_edicio"/>
+    <addaction name="actionVeure_nombre_elements"/>
+    <addaction name="actionAnotacions"/>
+   </widget>
+   <widget class="QMenu" name="menuAjuda">
+    <property name="title">
+     <string>A&amp;juda</string>
+    </property>
+    <addaction name="actionManual"/>
+    <addaction name="actionRegistrar_programa"/>
+    <addaction name="actionVeure_el_log"/>
+    <addaction name="separator"/>
+    <addaction name="actionSobre_QT"/>
+    <addaction name="actionSobre_TrenDigital"/>
+    <addaction name="actionSobre_Interficies"/>
+   </widget>
+   <widget class="QMenu" name="menuAccions">
+    <property name="title">
+     <string>A&amp;ccions</string>
+    </property>
+    <addaction name="actionInicialitzar_desviaments"/>
+    <addaction name="actionEnjegarTot"/>
+    <addaction name="actionPararTot"/>
+    <addaction name="actionIniciar_programa"/>
+    <addaction name="actionParar_programa"/>
+   </widget>
+   <addaction name="menuArxiu"/>
+   <addaction name="menuEdici"/>
+   <addaction name="menuVeure"/>
+   <addaction name="menuAccions"/>
+   <addaction name="menuAjuda"/>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle">
+    <string>Main Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNou"/>
+   <addaction name="actionObrir"/>
+   <addaction name="actionGuardar"/>
+   <addaction name="actionGuardar_com"/>
+   <addaction name="separator"/>
+   <addaction name="actionConfigurar_impresora"/>
+   <addaction name="actionConfigurar_sistema"/>
+   <addaction name="separator"/>
+   <addaction name="actionPararTot"/>
+   <addaction name="actionEnjegarTot"/>
+   <addaction name="separator"/>
+   <addaction name="actionLocomotores"/>
+   <addaction name="actionProgrames_i_rutes"/>
+   <addaction name="separator"/>
+   <addaction name="actionIniciar_programa"/>
+   <addaction name="actionParar_programa"/>
+   <addaction name="separator"/>
+   <addaction name="actionMode_edicio"/>
+   <addaction name="actionAnotacions"/>
+   <addaction name="separator"/>
+   <addaction name="actionSortir"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="editToolBar">
+   <property name="windowTitle">
+    <string>Edition Toolbar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>true</bool>
+   </attribute>
+   <addaction name="actionCommon_33000_0"/>
+   <addaction name="actionCommon_33001_0"/>
+   <addaction name="actionCommon_33002_0"/>
+   <addaction name="actionCommon_33003_0"/>
+   <addaction name="actionCommon_33008_0"/>
+   <addaction name="actionCommon_33009_0"/>
+   <addaction name="actionCommon_33010_0"/>
+   <addaction name="actionCommon_33011_0"/>
+   <addaction name="actionCommon_33012_0"/>
+   <addaction name="actionCommon_33013_0"/>
+   <addaction name="actionCommon_33014_0"/>
+   <addaction name="actionCommon_33015_0"/>
+   <addaction name="actionCommon_33016_0"/>
+   <addaction name="actionCommon_33017_0"/>
+   <addaction name="actionCommon_33018_0"/>
+   <addaction name="actionCommon_33019_0"/>
+   <addaction name="actionCommon_33020_0"/>
+   <addaction name="actionCommon_33021_0"/>
+   <addaction name="actionCommon_33022_0"/>
+   <addaction name="actionCommon_33023_0"/>
+   <addaction name="actionCommon_33024_0"/>
+   <addaction name="actionCommon_33025_0"/>
+   <addaction name="actionCommon_33026_0"/>
+   <addaction name="actionCommon_33027_0"/>
+  </widget>
+  <action name="actionNou">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/document-new.png</normaloff>:/images/icons/document-new.png</iconset>
+   </property>
+   <property name="text">
+    <string>Nou</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionObrir">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/document-open.png</normaloff>:/images/icons/document-open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Obrir</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionGuardar">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/document-save.png</normaloff>:/images/icons/document-save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Guardar</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionGuardar_com">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/document-save-as.png</normaloff>:/images/icons/document-save-as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Guardar com</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionConfigurar_impresora">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/document-print.png</normaloff>:/images/icons/document-print.png</iconset>
+   </property>
+   <property name="text">
+    <string>Configurar impresora</string>
+   </property>
+   <property name="toolTip">
+    <string>Configurar impresora</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionConfigurar_sistema">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/document-properties.png</normaloff>:/images/icons/document-properties.png</iconset>
+   </property>
+   <property name="text">
+    <string>Configurar sistema</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSortir">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/system-shutdown.png</normaloff>:/images/icons/system-shutdown.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sortir</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionLocomotores">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/tren-digital.png</normaloff>:/images/icons/tren-digital.png</iconset>
+   </property>
+   <property name="text">
+    <string>Locomotores</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionProgrames_i_rutes">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/appointment-new.png</normaloff>:/images/icons/appointment-new.png</iconset>
+   </property>
+   <property name="text">
+    <string>Programes i rutes</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionInsertar_text">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/gtk-edit.png</normaloff>:/images/icons/gtk-edit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Insertar text</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionBarra_eines">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Barra d'eines</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionBarra_estat">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Barra d'estat</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionBarra_locomotores">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Barra de locomotores</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionMode_edicio">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/applications-development.png</normaloff>:/images/icons/applications-development.png</iconset>
+   </property>
+   <property name="text">
+    <string>Mode d'edició</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionManual">
+   <property name="text">
+    <string>Manual</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionRegistrar_programa">
+   <property name="text">
+    <string>Registrar programa</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSobre_TrenDigital">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/help-about.png</normaloff>:/images/icons/help-about.png</iconset>
+   </property>
+   <property name="text">
+    <string>Sobre Tren Digital</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionInicialitzar_desviaments">
+   <property name="text">
+    <string>Inicialitzar desviaments</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionVeure_nombre_elements">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Nombre de l'element</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionPararTot">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/dialog-warning.png</normaloff>:/images/icons/dialog-warning.png</iconset>
+   </property>
+   <property name="text">
+    <string>Parada d'emergència</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionEnjegarTot">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/view-refresh.png</normaloff>:/images/icons/view-refresh.png</iconset>
+   </property>
+   <property name="text">
+    <string>Engegar trens</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionAnotacions">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/edit-find-replace.png</normaloff>:/images/icons/edit-find-replace.png</iconset>
+   </property>
+   <property name="text">
+    <string>Anotacions</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionIniciar_programa">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/media-playback-start.png</normaloff>:/images/icons/media-playback-start.png</iconset>
+   </property>
+   <property name="text">
+    <string>Iniciar programa</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionParar_programa">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/notification-audio-stop.png</normaloff>:/images/icons/notification-audio-stop.png</iconset>
+   </property>
+   <property name="text">
+    <string>Parar programa</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionSobre_QT">
+   <property name="text">
+    <string>Sobre QT</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionVeure_el_log">
+   <property name="icon">
+    <iconset resource="../icons.qrc">
+     <normaloff>:/images/icons/logviewer.png</normaloff>:/images/icons/logviewer.png</iconset>
+   </property>
+   <property name="text">
+    <string>Veure el log</string>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionCommon_33000_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33000_0.png</normaloff>:/images/bitmaps/Common_33000_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33000_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33001_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33001_0.png</normaloff>:/images/bitmaps/Common_33001_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33001_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33002_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33002_0.png</normaloff>:/images/bitmaps/Common_33002_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33002_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33002_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33003_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33003_0.png</normaloff>:/images/bitmaps/Common_33003_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33003_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33003_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33008_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33008_0.png</normaloff>:/images/bitmaps/Common_33008_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33008_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33008_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33009_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33009_0.png</normaloff>:/images/bitmaps/Common_33009_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33009_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33009_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33010_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33010_0.png</normaloff>:/images/bitmaps/Common_33010_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33010_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33010_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33011_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33011_0.png</normaloff>:/images/bitmaps/Common_33011_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33011_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33011_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33012_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33012_0.png</normaloff>:/images/bitmaps/Common_33012_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33012_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33012_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33013_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33013_0.png</normaloff>:/images/bitmaps/Common_33013_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33013_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33013_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33014_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33014_0.png</normaloff>:/images/bitmaps/Common_33014_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33014_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33014_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33015_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33015_0.png</normaloff>:/images/bitmaps/Common_33015_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33015_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33015_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33016_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33016_0.png</normaloff>:/images/bitmaps/Common_33016_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33016_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33016_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33017_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33017_0.png</normaloff>:/images/bitmaps/Common_33017_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33017_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33017_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33018_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33018_0.png</normaloff>:/images/bitmaps/Common_33018_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33018_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33018_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33019_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33019_0.png</normaloff>:/images/bitmaps/Common_33019_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33019_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33019_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33020_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33020_0.png</normaloff>:/images/bitmaps/Common_33020_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33020_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33020_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33021_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33021_0.png</normaloff>:/images/bitmaps/Common_33021_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33021_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33021_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33022_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33022_0.png</normaloff>:/images/bitmaps/Common_33022_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33022_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33022_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33023_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33023_0.png</normaloff>:/images/bitmaps/Common_33023_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33023_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33023_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33024_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33024_0.png</normaloff>:/images/bitmaps/Common_33024_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33024_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33024_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33025_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33025_0.png</normaloff>:/images/bitmaps/Common_33025_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33025_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33025_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33026_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33026_0.png</normaloff>:/images/bitmaps/Common_33026_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33026_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33026_0</string>
+   </property>
+  </action>
+  <action name="actionCommon_33027_0">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../bitmaps.qrc">
+     <normaloff>:/images/bitmaps/Common_33027_0.png</normaloff>:/images/bitmaps/Common_33027_0.png</iconset>
+   </property>
+   <property name="text">
+    <string>Common_33027_0</string>
+   </property>
+   <property name="toolTip">
+    <string>Common_33027_0</string>
+   </property>
+  </action>
+  <action name="actionSobre_Interficies">
+   <property name="text">
+    <string>Sobre les Interfícies</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>View</class>
+   <extends>QGraphicsView</extends>
+   <header>view.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../bitmaps.qrc"/>
+  <include location="../icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>
