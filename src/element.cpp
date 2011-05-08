@@ -27,8 +27,6 @@ Element::Element()
 {
     m_bitmapNumber = 1; // shouldn't be zero?
 
-    m_pIcon = NULL;
-
     // clear();
 }
 
@@ -117,10 +115,12 @@ void Element::clear()
 
 void Element::draw(QPainter *painter, bool showElementNumber)
 {
+    /*
     if (m_pIcon != NULL)
     {
         painter->drawPixmap(m_zone, m_pIcon->pixmap());
     }
+    */
 
 
 
@@ -162,10 +162,11 @@ void Element::draw(QPainter *painter, bool showElementNumber)
         }
     }
 
-    if (m_bitmapNumber >= 0 && m_bitmapNumber < m_dibs.size())
+    if (m_bitmapNumber >= 0)
     {
+
         // m_pDibs[m_bitmapNumber]->Stretch(painter, p, s, FALSE);
-        painter->drawImage(r, *m_dibs.at(m_bitmapNumber));
+        painter->drawImage(r, m_dibs.at(m_bitmapNumber));
     }
 
     if (showElementNumber)
@@ -478,16 +479,6 @@ bool Element::getAllBitmaps()
 
     m_bitmapFileNameBase = fileNameBase;
 
-    MainWindow *pMainWindow = getMainWindow();
-
-    ASSERT(pMainWindow != NULL);
-
-    if (pMainWindow == NULL)
-    {
-        qDebug() << ("Element::getAllBitmaps(): Can't get main window pointer");
-        return false;
-    }
-
     for (int i=0; i<m_numberOfBitmaps; i++)
     {
         QString index;
@@ -496,9 +487,9 @@ bool Element::getAllBitmaps()
 
         QString fileName;
 
-        fileName = QString(fileNameBase) + QString("_") + QString(index) + QString(".png");
+        fileName = QString(":/images/bitmaps/") + QString(fileNameBase) + QString("_") + QString(index) + QString(".png");
 
-        m_dibs.append(pMainWindow->getBitmapPtr(fileName));
+        m_dibs.append(QIcon(fileName));
     }
 
     return true;

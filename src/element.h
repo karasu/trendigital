@@ -72,8 +72,6 @@ public:
     inline void setInitialPosition(int i) { m_initialPosition = i; }
     inline void setElementNumber(int i) { m_elementNumber = i; }
 
-    inline void setIcon(QIcon *pIcon) { m_pIcon = pIcon; }
-
     void setFBModuleNumber(int i);
     void setId(int id);
     void setAddress(int pos, int address);
@@ -87,7 +85,7 @@ public:
 
     void drawThumbnail(QPainter *painter, QPoint p, QSize s);
 
-    QIcon *m_pIcon;
+    QList<QIcon> m_dibs;
 
 protected:
 

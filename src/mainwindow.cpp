@@ -103,6 +103,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     qDebug() << ("Loading train interfaces");
     loadPlugins();
+    qDebug() << ("Train interfaces loaded");
 
     // just for testing purposes ************************************************************************************
 

@@ -75,7 +75,7 @@ void Cell::addElement(int id, QIcon *pIcon)
     Element *pNewElement = new Element();
     pNewElement->setZone(m_zone);
     pNewElement->setId(id);
-    pNewElement->setIcon(pIcon);
+    // pNewElement->setIcon(pIcon);
     m_elements.append(pNewElement);
 
     /*
@@ -484,9 +484,9 @@ void Cell::paint(QPainter *painter,
 {
     //painter->setClipRect( option->exposedRect );
 
-    QIcon *pIcon = m_elements[0]->m_pIcon;
+    QIcon icon = m_elements[0]->m_dibs.at(0);
 
-    if (pIcon->isNull())
+    if (icon.isNull())
     {
         if (!m_markRoute)
         {
