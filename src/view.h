@@ -49,17 +49,17 @@ public:
     // From panning the view
     QPoint m_lastPanPoint;
 
+    // Last id and icon that has been selected on edit toolbar
     QIcon m_currentElementIcon;
-    QString m_currentElementId;
+    int m_currentElementId;
 
     // Set the current centerpoint in the
     void setCenter(const QPointF& centerPoint);
     QPointF getCenter() { return m_currentCenterPoint; }
 
     inline void setCurrentElementIcon(QIcon icon) { m_currentElementIcon = icon; }
-
-    inline void setCurrentElementId(int id) { m_currentElementId = QString::number(id); }
-    inline void setCurrentElementId(QString id) { m_currentElementId = id; }
+    inline void setCurrentElementId(QString id) { m_currentElementId = id.toInt(); }
+    inline void setCurrentElementId(int id) { m_currentElementId = id; }
 
     // Take over the interaction
     virtual void mousePressEvent(QMouseEvent* event);

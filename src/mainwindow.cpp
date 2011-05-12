@@ -314,12 +314,12 @@ bool MainWindow::askIfSaveBeforeCloseDocument()
     {
         int r = QMessageBox::warning(this, tr("Tren Digital"),
         tr("El circuit, les màquines o els programes s'han modificat.\n"
-           "Desitges guardar els canvis?"),
+           "Estàs segur que vols sortir sense desar els canvis?"),
         QMessageBox::Yes | QMessageBox::Default,
         QMessageBox::No,
         QMessageBox::Cancel | QMessageBox::Escape);
 
-        if (r == QMessageBox::Yes)
+        if (r == QMessageBox::No)
         {
             return m_pDoc->save();
         }
@@ -328,6 +328,7 @@ bool MainWindow::askIfSaveBeforeCloseDocument()
             return false;
         }
     }
+
     return true;
 }
 
@@ -518,7 +519,7 @@ void MainWindow::onInsertElement(QAction *pAction)
     {
         if (pAction->isChecked())
         {
-            qDebug() << ("MainWindow::onInsertElement: Changing current element icon and id");
+            qDebug() << ("MainWindow::onInsertElement: Changing current element icon and id to " + pAction->text());
             m_pView->setCurrentElementIcon(pAction->icon());
             m_pView->setCurrentElementId(pAction->text());
         }

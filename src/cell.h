@@ -42,7 +42,7 @@ public:
 
     void clear();
 
-    void addElement(int id, QIcon *pIcon);
+    void addElement(int id);
     void addOrEditFBModule(void);
     void drawGrid(QPainter *painter);
     void drawElements(QPainter *painter, bool showElementNumber);

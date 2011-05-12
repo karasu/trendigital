@@ -74,19 +74,26 @@ bool Cell::isPtInCell(QPoint point)
     return false;
 }
 
-void Cell::addElement(int id, QIcon *pIcon)
+void Cell::addElement(int id)
 {
-    Element *pNewElement = new Element();
-    pNewElement->setZone(m_zone);
-    pNewElement->setId(id);
-    // pNewElement->setIcon(pIcon);
-    m_elements.append(pNewElement);
+    if (m_elements.count() > 0)
+    {
+        qDebug() << ("There is already an element in this cell");
+    }
+    else
+    {
+        Element *pNewElement = new Element();
+        pNewElement->setZone(m_zone);
+        pNewElement->setId(id);
+        m_elements.append(pNewElement);
 
-    /*
-    CDigitalTrainDoc *pDoc = (CDigitalTrainDoc *)GetCurrentDocument();
-    ASSERT(pDoc != NULL);
-    pDoc->SetModifiedFlag(TRUE);
-    */
+        // fixme
+        /*
+        CDigitalTrainDoc *pDoc = (CDigitalTrainDoc *)GetCurrentDocument();
+        ASSERT(pDoc != NULL);
+        pDoc->SetModifiedFlag(TRUE);
+        */
+    }
 }
 
 void Cell::deleteFBModule()
@@ -488,35 +495,41 @@ void Cell::paint(QPainter *painter,
 {
     //painter->setClipRect( option->exposedRect );
 
-    QIcon icon;
-
-    if (m_elements.count() > 0)
-    {
-        icon = m_elements[0]->m_dibs.at(0);
-    }
-
-    if (icon.isNull())
-    {
-        if (!m_markRoute)
-        {
-            painter->setBrush(Qt::black);
-            if (m_hovered && m_pView->editMode())
-            {
-                painter->setPen(Qt::red);
-            }
-            else
-            {
-                painter->setPen(Qt::white);
-            }
-            painter->drawRect(m_zone);
-        }
-    }
-    else
-    {
-    }
 
     // fixme
     // drawElements(painter, false);
+
+    if (!m_markRoute)
+    {
+        painter->setBrush(Qt::black);
+        if (m_hovered && m_pView->editMode())
+        {
+            painter->setPen(Qt::red);
+        }
+        else
+        {
+            painter->setPen(Qt::white);
+        }
+
+        // fixme
+        // draws a filled rectangle, should draw only the border (use fillrect)
+        painter->drawRect(m_zone);
+    }
+
+    if (m_elements.count() > 0)
+    {
+        Element *pElement = m_elements.at(0);
+
+        if (pElement != NULL)
+        {
+            pElement->draw(painter, false);
+        }
+        else
+        {
+            qDebug() << ("cell.cpp: pElement is null!");
+        }
+    }
+
 }
 
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -533,8 +546,7 @@ void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
         case Qt::LeftButton:
             if (m_pView->editMode())
             {
-                // fixme
-                // addElement(m_pView->m_currentElementId, )
+                addElement(m_pView->m_currentElementId);
             }
             else
             {

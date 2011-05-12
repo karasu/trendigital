@@ -34,7 +34,7 @@ public:
     void clear(void);
 
     // LoadAllBitmaps in mfc version
-    bool getAllBitmaps(void);
+    bool getNeededBitmaps(void);
 
     void draw(QPainter *painter, bool showElementNumber);
 

@@ -29,14 +29,14 @@ Element::Element()
 
     m_bitmapNumber = 1; // shouldn't be zero?
 
-    // clear();
+    clear();
 
     qDebug() << ("Element::Element() finished.");
 }
 
 Element::~Element()
 {
-    // clear();
+    clear();
 }
 
 bool Element::isElementNumberUsed(int i)
@@ -170,7 +170,8 @@ void Element::draw(QPainter *painter, bool showElementNumber)
     {
 
         // m_pDibs[m_bitmapNumber]->Stretch(painter, p, s, FALSE);
-        painter->drawImage(r, m_dibs.at(m_bitmapNumber).pixmap());
+        qDebug() << m_bitmapNumber;
+        painter->drawPixmap(r, m_dibs.at(m_bitmapNumber).pixmap());
     }
 
     if (showElementNumber)
@@ -231,6 +232,7 @@ void Element::setId(int id)
 {
     m_id = id;
 
+    // Gets element type and bitmap_number
     calculateElementType();
 }
 
@@ -346,7 +348,7 @@ void Element::calculateElementType()
 
     if (m_elementType != TYPE_UNKNOWN)
     {
-        getAllBitmaps();
+        getNeededBitmaps();
     }
 }
 
@@ -415,7 +417,7 @@ void Element::setAddress(int pos, int address)
     }
 }
 
-bool Element::getAllBitmaps()
+bool Element::getNeededBitmaps()
 {
     // just in case
     m_dibs.clear();
@@ -425,8 +427,9 @@ bool Element::getAllBitmaps()
         return true;
     }
 
-    QString programPath(QApplication::applicationDirPath()); // was g_programPath in MFC
-    QString fileNameBase = programPath + "/images/bitmaps/";
+    // QString programPath(QApplication::applicationDirPath()); // was g_programPath in MFC
+    //QString fileNameBase = programPath + "/images/bitmaps/";
+    QString fileNameBase("");
 
     switch(m_elementType)
     {
@@ -492,7 +495,17 @@ bool Element::getAllBitmaps()
 
         fileName = QString(":/images/bitmaps/") + QString(fileNameBase) + QString("_") + QString(index) + QString(".png");
 
-        m_dibs.append(QIcon(fileName));
+        QIcon icon(fileName);
+
+        if (icon.isNull())
+        {
+            qDebug() << ("Can't load " + fileName);
+        }
+        else
+        {
+            qDebug() << (fileName + " has been loaded correctly.");
+            m_dibs.append(icon);
+        }
     }
 
     return true;
