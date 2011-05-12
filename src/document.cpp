@@ -27,6 +27,8 @@
 
 Document::Document()
 {
+    qDebug() << ("Entering Document::Document()");
+
 //    clear();
 
     if (getDigitalSystem().isEmpty())
@@ -39,6 +41,8 @@ Document::Document()
 
     m_firstPositionEncoded = false;
     m_keyboard15 = true;
+
+    qDebug() << ("Document::Document() finished");
 }
 
 Document::~Document()

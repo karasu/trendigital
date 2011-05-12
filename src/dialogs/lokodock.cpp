@@ -21,6 +21,8 @@ LokoDock::LokoDock(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LokoDock)
 {
+    qDebug() << ("Entering LokoDock::LokoDock()");
+
     ui->setupUi(this);
 
     // layout()->setSizeConstraint(QLayout::SetFixedSize);
@@ -30,6 +32,8 @@ LokoDock::LokoDock(QWidget *parent) :
     m_lokoID = -1;
 
     // setLokoImage("/home/karasu/projects/TrenDigital/images/loks/Roco/steam/63291.png");
+
+    qDebug() << ("LokoDock::LokoDock() finished");
 }
 
 LokoDock::~LokoDock()

@@ -24,6 +24,8 @@
 
 View::View(QWidget *parent) : QGraphicsView(parent)
 {
+    qDebug() << ("Entering View::View()");
+
     // Set-up the scene
     QGraphicsScene *pScene = new QGraphicsScene(this);
 
@@ -54,6 +56,8 @@ View::View(QWidget *parent) : QGraphicsView(parent)
     // setSceneRect(0, 0, 1000, 1000);
     // setCenter(QPointF(500.0, 500.0)); // A modified version of centerOn(), handles special cases
     // setCursor(Qt::OpenHandCursor);
+
+    qDebug() << ("View::View() finished.");
 }
 
 Cell * View::getCell(int x, int y)

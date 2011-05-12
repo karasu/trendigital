@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    qDebug() << ("MainWindow::MainWindow()");
+    qDebug() << ("Entering MainWindow::MainWindow()");
 
     m_pInstance = this;
 
@@ -150,6 +150,9 @@ MainWindow::MainWindow(QWidget *parent) :
     m_pDoc->m_lokos.insert(4, pLoko);
 
     qDebug() << ("Test lokos created.");
+
+    qDebug() << ("MainWindow::MainWindow() finished");
+
 }
 
 MainWindow::~MainWindow()

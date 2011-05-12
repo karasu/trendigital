@@ -20,6 +20,7 @@
 
 #include <QDialog>
 #include <QLayout>
+#include <QDebug>
 
 namespace Ui {
     class LokoDock;

@@ -20,6 +20,7 @@
 #include <QString>
 #include <QList>
 #include <QDataStream>
+#include <QDebug>
 
 class LokoCommands
 {

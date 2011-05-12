@@ -31,11 +31,15 @@ LokoTabBar::LokoTabBar(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LokoTabBar)
 {
+    qDebug() << ("Entering LokoTabBar::LokoTabBar()");
+
     ui->setupUi(this);
 
     setupButtons();
 
     ui->LokoTab->setCurrentIndex(0);
+
+    qDebug() << ("LokoTabBar::LokoTabBar() finished");
 }
 
 void LokoTabBar::closeEvent(QCloseEvent *event)

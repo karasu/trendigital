@@ -21,7 +21,12 @@
 
 Loko::Loko()
 {
+    qDebug() << ("Entering Loko::Loko()");
+
     clear();
+
+    qDebug() << ("Loko::Loko() finished");
+
 }
 
 void Loko::clear()

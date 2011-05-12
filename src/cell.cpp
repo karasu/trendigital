@@ -22,11 +22,15 @@
 Cell::Cell(QGraphicsItem *parent) : QGraphicsItem(parent)
 
 {
+    qDebug() << ("Entering Cell::Cell()");
+
     clear();
 
     m_pView = NULL;
 
     setAcceptHoverEvents(true);
+
+    qDebug() << ("Cell::Cell() finished.");
 }
 
 void Cell::clear()
@@ -484,7 +488,12 @@ void Cell::paint(QPainter *painter,
 {
     //painter->setClipRect( option->exposedRect );
 
-    QIcon icon = m_elements[0]->m_dibs.at(0);
+    QIcon icon;
+
+    if (m_elements.count() > 0)
+    {
+        icon = m_elements[0]->m_dibs.at(0);
+    }
 
     if (icon.isNull())
     {
@@ -539,6 +548,15 @@ void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
             break;
 
         case Qt::RightButton:
+            break;
+
+        case Qt::NoButton:
+            break;
+        case Qt::XButton1:
+            break;
+        case Qt::XButton2:
+            break;
+        case Qt::MouseButtonMask:
             break;
 
     }

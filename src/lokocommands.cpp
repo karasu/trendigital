@@ -19,6 +19,8 @@
 
 LokoCommands::LokoCommands()
 {
+    qDebug() << ("Entering LokoCommands::LokoCommands()");
+
     m_FBModuleNumber = 0;
 
     m_name.clear();
@@ -37,6 +39,9 @@ LokoCommands::LokoCommands()
 
     m_functions.clear();
     m_aditionalFunctions.clear();
+
+    qDebug() << ("LokoCommands::LokoCommands() finished.");
+
 }
 
 bool LokoCommands::load(QDataStream & ar, int fileVersion)
