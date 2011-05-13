@@ -464,7 +464,6 @@ void Cell::drawElements(QPainter *painter, bool showElementNumber)
 // also in grid.cpp
 void Cell::drawMarked(QPainter *painter, QPen pen)
 {
-
     if (m_markRoute)
     {
         painter->setPen(pen);
@@ -496,26 +495,6 @@ void Cell::paint(QPainter *painter,
     //painter->setClipRect( option->exposedRect );
 
 
-    // fixme
-    // drawElements(painter, false);
-
-    if (!m_markRoute)
-    {
-        painter->setBrush(Qt::black);
-        if (m_hovered && m_pView->editMode())
-        {
-            painter->setPen(Qt::red);
-        }
-        else
-        {
-            painter->setPen(Qt::white);
-        }
-
-        // fixme
-        // draws a filled rectangle, should draw only the border (use fillrect)
-        painter->drawRect(m_zone);
-    }
-
     if (m_elements.count() > 0)
     {
         Element *pElement = m_elements.at(0);
@@ -526,10 +505,29 @@ void Cell::paint(QPainter *painter,
         }
         else
         {
-            qDebug() << ("cell.cpp: pElement is null!");
+            qDebug() << ("cell::paint(): pElement is null!");
         }
     }
 
+    // fixme
+    // drawElements(painter, false);
+
+    if (!m_markRoute)
+    {
+//        painter->setBrush(Qt::black);
+        if (m_hovered && m_pView->editMode())
+        {
+            painter->setPen(Qt::red);
+        }
+        else
+        {
+            painter->setPen(Qt::white);
+        }
+
+        painter->setBrush(Qt::NoBrush);
+        painter->drawRect(m_zone);
+        painter->setBrush(Qt::SolidPattern);
+    }
 }
 
 void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)

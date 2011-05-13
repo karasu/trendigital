@@ -155,22 +155,17 @@ void Element::draw(QPainter *painter, bool showElementNumber)
 
         if (pDoc != NULL)
         {
-            bool isFBModuleActive = pDoc->m_isFBModuleActive[m_FBModuleNumber];
-
-            if (isFBModuleActive)
+            if (pDoc->m_isFBModuleActive[m_FBModuleNumber])
             {
-
                 painter->fillRect(r, QColor(255,0,0));
-                painter->setBackgroundColor(QColor(0,0,0));
+                // painter->setBackgroundColor(QColor(0,0,0));
             }
         }
     }
 
     if (m_bitmapNumber >= 0)
     {
-
         // m_pDibs[m_bitmapNumber]->Stretch(painter, p, s, FALSE);
-        qDebug() << m_bitmapNumber;
         painter->drawPixmap(r, m_dibs.at(m_bitmapNumber).pixmap());
     }
 
