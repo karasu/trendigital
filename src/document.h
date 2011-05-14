@@ -23,7 +23,6 @@
 #include <QDataStream>
 #include <QMessageBox>
 #include <QApplication>
-#include <QDebug>
 #include <QFile>
 #include <QTextStream>
 

@@ -20,7 +20,6 @@
 #include <QList>
 #include <QString>
 #include <QDataStream>
-#include <QDebug>
 
 class Route;
 // class GlobalConditions;

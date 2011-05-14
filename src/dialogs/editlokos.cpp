@@ -26,8 +26,6 @@ EditLokos::EditLokos(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditLokos)
 {
-    qDebug() << ("Entering EditLokos::EditLokos()");
-
     ui->setupUi(this);
 
     ui->address->setMaxValue(LOKO_MAX_ADDRESS);
@@ -97,8 +95,6 @@ EditLokos::EditLokos(QWidget *parent) :
     m_uiExtraFunctionButtons.append(ui->pushButtonExtraF8);
 
     m_pDocLokos = NULL;
-
-    qDebug() << ("EditLokos::EditLokos() finished.");
 }
 
 // OK

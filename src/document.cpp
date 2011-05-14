@@ -24,11 +24,10 @@
 #include "program.h"
 #include "mainwindow.h"
 #include "document.h"
+#include "debug.h"
 
 Document::Document()
 {
-    qDebug() << ("Entering Document::Document()");
-
 //    clear();
 
     if (getDigitalSystem().isEmpty())
@@ -41,18 +40,17 @@ Document::Document()
 
     m_firstPositionEncoded = false;
     m_keyboard15 = true;
-
-    qDebug() << ("Document::Document() finished");
 }
 
 Document::~Document()
 {
+    debug("Clearing document", __FILE__, __LINE__);
     clear();
 }
 
 void Document::setDefaultInterfaceValues()
 {
-    qDebug() << "Setting default values for interface configuration.";
+    debug("Setting default values for interface configuration.", __FILE__, __LINE__);
 
     // Set some defaults...
 
@@ -76,7 +74,7 @@ void Document::setDefaultInterfaceValues()
 
 bool Document::load(const QString &fileName)
 {
-    qDebug() << ("Document::load()");
+    debug("Loading " + fileName, __FILE__, __LINE__);
 
     m_fileName = fileName;
 
@@ -258,7 +256,7 @@ bool Document::loadCodes(QString fileName, QList<QString> *lines)
 
     if (!file.open(IO_ReadOnly))
     {
-        qDebug() << ("Can't open " + fileName);
+        debug("Can't open " + fileName, __FILE__, __LINE__);
         return false;
     }
 
@@ -815,7 +813,7 @@ Route Document::getRouteCopy(int route)
         return m_programs[m_currentProgram].getRouteCopy(route);
     }
 
-    qDebug() << ("Document::getRouteCopy: Index m_currentProgram out of bounds!");
+    debug("Index m_currentProgram out of bounds!", __FILE__, __LINE__);
 
     return (Route());
 }
@@ -988,7 +986,7 @@ void Document::setCurrentProgramByName(QString name)
         }
     }
 
-    qDebug() << ("Document::setCurrentProgramByName: It was not a valid program name");
+    debug("It was not a valid program name", __FILE__, __LINE__);
     ASSERT(false);
 }
 
@@ -1002,7 +1000,7 @@ void Document::setCurrentProgramByPos(int index)
     }
     else
     {
-        qDebug() << ("Document::setCurrentProgramByIndex: It was not a valid program index");
+        debug("It was not a valid program index", __FILE__, __LINE__);
         ASSERT(false);
     }
 }

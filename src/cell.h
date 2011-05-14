@@ -17,7 +17,6 @@
 #ifndef CELL_H
 #define CELL_H
 
-#include <QDebug>
 #include <QPainter>
 #include <QGraphicsItem>
 #include <QIcon>

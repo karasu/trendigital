@@ -18,19 +18,16 @@
 #include "element.h"
 #include "cell.h"
 #include "view.h"
+#include "debug.h"
 
 Cell::Cell(QGraphicsItem *parent) : QGraphicsItem(parent)
 
 {
-    // qDebug() << ("Entering Cell::Cell()");
-
     clear();
 
     m_pView = NULL;
 
     setAcceptHoverEvents(true);
-
-    // qDebug() << ("Cell::Cell() finished.");
 }
 
 void Cell::clear()
@@ -78,7 +75,7 @@ void Cell::addElement(int id)
 {
     if (m_elements.count() > 0)
     {
-        qDebug() << ("There is already an element in this cell");
+        debug("There is already an element in this cell", __FILE__, __LINE__);
     }
     else
     {
@@ -505,7 +502,7 @@ void Cell::paint(QPainter *painter,
         }
         else
         {
-            qDebug() << ("cell::paint(): pElement is null!");
+            debug("pElement is null!", __FILE__, __LINE__);
         }
     }
 
@@ -548,7 +545,7 @@ void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
             }
             else
             {
-                qDebug() << ("Cell:mousePressEvent not in edit mode.");
+                debug("not in edit mode.", __FILE__, __LINE__);
                 m_selected = !m_selected;
             }
             update(boundingRect());

@@ -27,8 +27,6 @@
 
 Route::Route()
 {
-    qDebug() << ("Entering Route::Route())");
-
     m_line = 0;
     m_lokoId = 0;
 
@@ -40,8 +38,6 @@ Route::Route()
     m_done = false;
 
     m_running = false;
-
-    qDebug() << ("Route::Route() finished.");
 }
 
 Route::~Route()

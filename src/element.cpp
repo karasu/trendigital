@@ -22,16 +22,13 @@
 #include "document.h"
 #include "lokocommands.h"
 #include "route.h"
+#include "debug.h"
 
 Element::Element()
 {
-    qDebug() << ("Entering Element::Element()");
-
     m_bitmapNumber = 1; // shouldn't be zero?
 
     clear();
-
-    qDebug() << ("Element::Element() finished.");
 }
 
 Element::~Element()
@@ -494,11 +491,11 @@ bool Element::getNeededBitmaps()
 
         if (icon.isNull())
         {
-            qDebug() << ("Can't load " + fileName);
+            debug("Can't load " + fileName, __FILE__, __LINE__);
         }
         else
         {
-            qDebug() << (fileName + " has been loaded correctly.");
+            debug(fileName + " has been loaded correctly.", __FILE__, __LINE__);
             m_dibs.append(icon);
         }
     }

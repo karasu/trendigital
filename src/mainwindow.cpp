@@ -27,6 +27,8 @@
 
 #include "plugindialog.h"
 
+#include "debug.h"
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -648,11 +650,3 @@ void MainWindow::useInterface(QString interfaceName)
     }
 }
 
-void MainWindow::debug(QString msg, QString file, int line)
-{
-    QString strline;
-
-    strline.setNum(line);
-
-    qDebug() << file + (":") + strline + (": ") + msg;
-}

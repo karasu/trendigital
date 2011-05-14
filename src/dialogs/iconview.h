@@ -21,7 +21,6 @@
 #include <QFileSystemModel>
 #include <QFileIconProvider>
 #include <QRegExp>
-#include <QDebug>
 
 #include <QMessageBox>
 
@@ -47,15 +46,12 @@ public:
         // QApplication::processEvents();
         if (isImage(info.suffix()))
         {
-            //qDebug() << "FileIconProvider::icon(): image file:" << info.absoluteFilePath();
             QPixmap pix(info.absoluteFilePath());
 
             return pix.scaled(QSize(MEDIABROWSER_LIST_ICON_SIZE),
                               Qt::KeepAspectRatio,
                               //Qt::IgnoreAspectRatio,
                               Qt::SmoothTransformation);
-            // return QIcon(info.absoluteFilePath()).pixmap();
-            // return iconForImage(info.absoluteFilePath(), m_iconSize);
         }
         else
         {

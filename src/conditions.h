@@ -18,7 +18,6 @@
 #define CONDITIONS_H
 
 #include <QDataStream>
-#include <QDebug>
 
 class DetourSignalCondition
 {

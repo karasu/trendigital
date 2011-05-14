@@ -25,7 +25,6 @@
 #include <QScrollBar>
 #include <QMouseEvent>
 #include <QWheelEvent>
-#include <QDebug>
 #include <QMap>
 #include <QIcon>
 

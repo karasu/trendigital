@@ -18,13 +18,14 @@
 #include "element.h"
 #include "cell.h"
 #include "view.h"
+#include "debug.h"
 
 // fixme
 // check that all Grid MFC class is well imported here, as it will disappear in this version
 
 View::View(QWidget *parent) : QGraphicsView(parent)
 {
-    qDebug() << ("Entering View::View()");
+    debug("Entering View::View()", __FILE__, __LINE__);
 
     // Set-up the scene
     QGraphicsScene *pScene = new QGraphicsScene(this);
@@ -56,8 +57,6 @@ View::View(QWidget *parent) : QGraphicsView(parent)
     // setSceneRect(0, 0, 1000, 1000);
     // setCenter(QPointF(500.0, 500.0)); // A modified version of centerOn(), handles special cases
     // setCursor(Qt::OpenHandCursor);
-
-    qDebug() << ("View::View() finished.");
 }
 
 Cell * View::getCell(int x, int y)

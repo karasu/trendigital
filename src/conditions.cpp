@@ -18,9 +18,6 @@
 
 DetourSignalCondition::DetourSignalCondition()
 {
-    qDebug() << ("Entering DetourSignalCondition::DetourSignalCondition()");
-
-    qDebug() << ("DetourSignalCondition::DetourSignalCondition() finished.");
 }
 
 FBModuleCondition::FBModuleCondition()

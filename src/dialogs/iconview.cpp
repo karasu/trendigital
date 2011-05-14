@@ -21,8 +21,6 @@ IconView::IconView(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::IconView)
 {
-    qDebug() << ("Entering IconView::IconView()");
-
     selectedImage.clear();
 
     ui->setupUi(this);
@@ -74,8 +72,6 @@ IconView::IconView(QWidget *parent) :
     connect(selectionModel, SIGNAL(currentChanged(QModelIndex,QModelIndex)), this, SLOT(onTreeViewCurrentChanged(QModelIndex)));
     connect(ui->listView,SIGNAL(clicked(QModelIndex)), this, SLOT(onListViewClicked(QModelIndex)));
     connect(ui->listView,SIGNAL(doubleClicked(QModelIndex)), this, SLOT(onListViewDoubleClicked(QModelIndex)));
-
-    qDebug() << ("IconView::IconView() finished");
 }
 
 IconView::~IconView()
@@ -139,7 +135,6 @@ void IconView::onListViewClicked(QModelIndex index)
 void IconView::accept()
 {
     // selectedImage = ((QFileSystemModel *)ui->listView->model())->filePath(ui->listView->currentIndex());
-    // qDebug() << selectedImage;
 
     // QMessageBox::warning(this, tr("Tren Digital"), selectedImage);
     QDialog::accept();

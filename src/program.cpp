@@ -23,8 +23,6 @@
 
 Program::Program()
 {
-    qDebug() << ("Entering Program::Program()");
-
     m_name.clear();
     m_description.clear();
 
@@ -33,8 +31,6 @@ Program::Program()
     m_startLine = 0;
 
     m_routes.clear();
-
-    qDebug() << ("Program::Program() finished.");
 }
 
 bool Program::load(QDataStream & ar, int fileVersion)

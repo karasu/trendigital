@@ -82,5 +82,4 @@
 #define CELL_WIDTH 20
 #define CELL_HEIGHT 20
 
-
 #endif // GENERAL_H

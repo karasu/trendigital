@@ -23,7 +23,6 @@
 #include <QInputDialog>
 #include <QSettings>
 #include <QTextCodec>
-#include <QDebug>
 #include <QPageSetupDialog>
 #include <QPrinter>
 #include <QMap>
@@ -92,8 +91,6 @@ private:
     void saveSettings(void);
 
     bool checkInterface(void);
-
-    void debug(QString msg, QString file, int line);
 
     QActionGroup *m_pActionCommonGroup;
 
