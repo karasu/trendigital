@@ -19,7 +19,7 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
 
-QString Virtual::name() { return QString("Virtual"); }
+QString Virtual::name() { return QString("virtual"); }
 
 QString Virtual::version() { return QString("0.0.1"); }
 
@@ -77,11 +77,11 @@ void Virtual::reverse() {}
 
 void Virtual::storeLoko(int address, char *name, int *id) {}
 
-void Virtual::deleteAllLokos() {}
+bool Virtual::deleteAllLokos() {}
 
 void Virtual::storeSwitch(int address, int *id) {}
 
-void Virtual::deleteAllSwitches() {}
+bool Virtual::deleteAllSwitches() {}
 
 int Virtual::getMFXLokosInfo(int *id, int *address, QString *name) { return 0; }
 

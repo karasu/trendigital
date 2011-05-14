@@ -25,6 +25,9 @@
 #include "mainwindow.h"
 #include "document.h"
 #include "debug.h"
+#include "traininterface.h"
+
+extern TrainInterface *g_interface;
 
 Document::Document()
 {
@@ -1264,25 +1267,24 @@ QString Document::getLokoName(int id)
 
 void Document::deleteAllInterfaceLokos()
 {
-    // fixme
-    /*
-    if (!g_interface.DeleteAllLocomotives())
+    if (g_interface != NULL)
     {
-        CLog::Log(LOG_ERROR, IDS_INTERFACE_NOT_CONNECTED, __FILE__, __LINE__);
-        _AfxMessageBox(IDS_INTERFACE_NOT_CONNECTED);
+        if (!g_interface->deleteAllLokos())
+        {
+            debug("Interface not connected!", __FILE__, __LINE__);
+        }
     }
-    */
 }
 
 void Document::deleteAllInterfaceSwitches()
 {
-    /*
-    if (!g_interface.DeleteAllSwitches())
+    if (g_interface != NULL)
     {
-        CLog::Log(LOG_ERROR, IDS_INTERFACE_NOT_CONNECTED, __FILE__, __LINE__);
-        _AfxMessageBox(IDS_INTERFACE_NOT_CONNECTED);
+        if (!g_interface->deleteAllSwitches())
+        {
+            debug("Interface not connected!", __FILE__, __LINE__);
+        }
     }
-    */
 }
 
 void Document::setFBModuleStatus(int i, bool status)

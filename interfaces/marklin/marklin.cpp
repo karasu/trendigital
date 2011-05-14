@@ -18,7 +18,7 @@
 
 QString Marklin::name()
 {
-    return QString("Marklin");
+    return QString("marklin");
 }
 
 QString Marklin::version()
@@ -109,13 +109,13 @@ void Marklin::reverse(void)
 void Marklin::storeLoko(int address, char *name, int *id)
 {}
 
-void Marklin::deleteAllLokos()
+bool Marklin::deleteAllLokos()
 {}
 
 void Marklin::storeSwitch(int address, int *id)
 {}
 
-void Marklin::deleteAllSwitches()
+bool Marklin::deleteAllSwitches()
 {}
 
 int Marklin::getMFXLokosInfo(int *id, int *address, QString *name)

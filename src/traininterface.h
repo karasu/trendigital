@@ -85,10 +85,10 @@ public:
     // New for TCPIP Interfaces
 
     virtual void storeLoko(int address, char *name, int *id) = 0;
-    virtual void deleteAllLokos(void) = 0;
+    virtual bool deleteAllLokos(void) = 0;
 
     virtual void storeSwitch(int address, int *id) = 0;
-    virtual void deleteAllSwitches(void) = 0;
+    virtual bool deleteAllSwitches(void) = 0;
 
     virtual int getMFXLokosInfo(int *id, int *address, QString *name) = 0;
     virtual int getMFXSID(void) = 0;

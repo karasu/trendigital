@@ -71,10 +71,10 @@ public:
     // New for TCPIP Interfaces
 
     void storeLoko(int address, char *name, int *id);
-    void deleteAllLokos(void);
+    bool deleteAllLokos(void);
 
     void storeSwitch(int address, int *id);
-    void deleteAllSwitches(void);
+    bool deleteAllSwitches(void);
 
     int getMFXLokosInfo(int *id, int *address, QString *name);
     int getMFXSID(void);

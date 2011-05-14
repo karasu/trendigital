@@ -504,7 +504,7 @@ void MainWindow::onInterfaceGo()
                 {
                     int speed = m_pDoc->m_lokos[i]->m_speed;
 
-                    if (checkInterface())
+                    if (g_interface != NULL)
                     {
                         if (!g_interface->setLokoSpeed(addr, speed))
                         {
@@ -539,7 +539,7 @@ void MainWindow::onInterfaceStop()
 
                 if (addr > 0)
                 {
-                    if (checkInterface())
+                    if (g_interface != NULL)
                     {
                         if (!g_interface->setLokoSpeed(addr, 0))
                         {
@@ -554,17 +554,6 @@ void MainWindow::onInterfaceStop()
     m_programsPaused = TRUE;
 
     debug("Emergency stop!", __FILE__, __LINE__);
-}
-
-bool MainWindow::checkInterface()
-{
-    if (g_interface == NULL)
-    {
-        debug("Interface is not loaded!", __FILE__, __LINE__);
-        return false;
-    }
-
-    return true;
 }
 
 void MainWindow::loadPlugins()
@@ -642,7 +631,7 @@ void MainWindow::useInterface(QString interfaceName)
 
                 if (pTrain && pTrain->name().lower() == interfaceName.lower())
                 {
-                    debug("Using " + interfaceName + " interface.", __FILE__, __LINE__);
+                    debug("Using \"" + interfaceName + "\" interface.", __FILE__, __LINE__);
                     g_interface = pTrain;
                 }
             }
