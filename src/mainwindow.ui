@@ -33,7 +33,7 @@
      <x>0</x>
      <y>0</y>
      <width>640</width>
-     <height>27</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArxiu">
@@ -490,7 +490,7 @@
      <normaloff>:/images/bitmaps/Common_33001_0.png</normaloff>:/images/bitmaps/Common_33001_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33001_0</string>
+    <string>33001</string>
    </property>
   </action>
   <action name="actionCommon_33002_0">
@@ -502,7 +502,7 @@
      <normaloff>:/images/bitmaps/Common_33002_0.png</normaloff>:/images/bitmaps/Common_33002_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33002_0</string>
+    <string>33002</string>
    </property>
    <property name="toolTip">
     <string>Common_33002_0</string>
@@ -517,7 +517,7 @@
      <normaloff>:/images/bitmaps/Common_33003_0.png</normaloff>:/images/bitmaps/Common_33003_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33003_0</string>
+    <string>33003</string>
    </property>
    <property name="toolTip">
     <string>Common_33003_0</string>
@@ -532,7 +532,7 @@
      <normaloff>:/images/bitmaps/Common_33008_0.png</normaloff>:/images/bitmaps/Common_33008_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33008_0</string>
+    <string>33008</string>
    </property>
    <property name="toolTip">
     <string>Common_33008_0</string>
@@ -547,7 +547,7 @@
      <normaloff>:/images/bitmaps/Common_33009_0.png</normaloff>:/images/bitmaps/Common_33009_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33009_0</string>
+    <string>33009</string>
    </property>
    <property name="toolTip">
     <string>Common_33009_0</string>
@@ -562,7 +562,7 @@
      <normaloff>:/images/bitmaps/Common_33010_0.png</normaloff>:/images/bitmaps/Common_33010_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33010_0</string>
+    <string>33010</string>
    </property>
    <property name="toolTip">
     <string>Common_33010_0</string>
@@ -577,7 +577,7 @@
      <normaloff>:/images/bitmaps/Common_33011_0.png</normaloff>:/images/bitmaps/Common_33011_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33011_0</string>
+    <string>33011</string>
    </property>
    <property name="toolTip">
     <string>Common_33011_0</string>
@@ -592,7 +592,7 @@
      <normaloff>:/images/bitmaps/Common_33012_0.png</normaloff>:/images/bitmaps/Common_33012_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33012_0</string>
+    <string>33012</string>
    </property>
    <property name="toolTip">
     <string>Common_33012_0</string>
@@ -607,7 +607,7 @@
      <normaloff>:/images/bitmaps/Common_33013_0.png</normaloff>:/images/bitmaps/Common_33013_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33013_0</string>
+    <string>33013</string>
    </property>
    <property name="toolTip">
     <string>Common_33013_0</string>
@@ -622,7 +622,7 @@
      <normaloff>:/images/bitmaps/Common_33014_0.png</normaloff>:/images/bitmaps/Common_33014_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33014_0</string>
+    <string>33014</string>
    </property>
    <property name="toolTip">
     <string>Common_33014_0</string>
@@ -637,7 +637,7 @@
      <normaloff>:/images/bitmaps/Common_33015_0.png</normaloff>:/images/bitmaps/Common_33015_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33015_0</string>
+    <string>33015</string>
    </property>
    <property name="toolTip">
     <string>Common_33015_0</string>
@@ -652,7 +652,7 @@
      <normaloff>:/images/bitmaps/Common_33016_0.png</normaloff>:/images/bitmaps/Common_33016_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33016_0</string>
+    <string>33016</string>
    </property>
    <property name="toolTip">
     <string>Common_33016_0</string>
@@ -667,7 +667,7 @@
      <normaloff>:/images/bitmaps/Common_33017_0.png</normaloff>:/images/bitmaps/Common_33017_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33017_0</string>
+    <string>33017</string>
    </property>
    <property name="toolTip">
     <string>Common_33017_0</string>
@@ -682,7 +682,7 @@
      <normaloff>:/images/bitmaps/Common_33018_0.png</normaloff>:/images/bitmaps/Common_33018_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33018_0</string>
+    <string>33018</string>
    </property>
    <property name="toolTip">
     <string>Common_33018_0</string>
@@ -697,7 +697,7 @@
      <normaloff>:/images/bitmaps/Common_33019_0.png</normaloff>:/images/bitmaps/Common_33019_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33019_0</string>
+    <string>33019</string>
    </property>
    <property name="toolTip">
     <string>Common_33019_0</string>
@@ -712,7 +712,7 @@
      <normaloff>:/images/bitmaps/Common_33020_0.png</normaloff>:/images/bitmaps/Common_33020_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33020_0</string>
+    <string>33020</string>
    </property>
    <property name="toolTip">
     <string>Common_33020_0</string>
@@ -727,7 +727,7 @@
      <normaloff>:/images/bitmaps/Common_33021_0.png</normaloff>:/images/bitmaps/Common_33021_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33021_0</string>
+    <string>33021</string>
    </property>
    <property name="toolTip">
     <string>Common_33021_0</string>
@@ -742,7 +742,7 @@
      <normaloff>:/images/bitmaps/Common_33022_0.png</normaloff>:/images/bitmaps/Common_33022_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33022_0</string>
+    <string>33022</string>
    </property>
    <property name="toolTip">
     <string>Common_33022_0</string>
@@ -757,7 +757,7 @@
      <normaloff>:/images/bitmaps/Common_33023_0.png</normaloff>:/images/bitmaps/Common_33023_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33023_0</string>
+    <string>33023</string>
    </property>
    <property name="toolTip">
     <string>Common_33023_0</string>
@@ -772,7 +772,7 @@
      <normaloff>:/images/bitmaps/Common_33024_0.png</normaloff>:/images/bitmaps/Common_33024_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33024_0</string>
+    <string>33024</string>
    </property>
    <property name="toolTip">
     <string>Common_33024_0</string>
@@ -787,7 +787,7 @@
      <normaloff>:/images/bitmaps/Common_33025_0.png</normaloff>:/images/bitmaps/Common_33025_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33025_0</string>
+    <string>33025</string>
    </property>
    <property name="toolTip">
     <string>Common_33025_0</string>
@@ -802,7 +802,7 @@
      <normaloff>:/images/bitmaps/Common_33026_0.png</normaloff>:/images/bitmaps/Common_33026_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33026_0</string>
+    <string>33026</string>
    </property>
    <property name="toolTip">
     <string>Common_33026_0</string>
@@ -817,7 +817,7 @@
      <normaloff>:/images/bitmaps/Common_33027_0.png</normaloff>:/images/bitmaps/Common_33027_0.png</iconset>
    </property>
    <property name="text">
-    <string>Common_33027_0</string>
+    <string>33027</string>
    </property>
    <property name="toolTip">
     <string>Common_33027_0</string>

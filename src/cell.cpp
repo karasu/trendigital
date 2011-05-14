@@ -22,7 +22,7 @@
 Cell::Cell(QGraphicsItem *parent) : QGraphicsItem(parent)
 
 {
-    qDebug() << ("Entering Cell::Cell()");
+    // qDebug() << ("Entering Cell::Cell()");
 
     clear();
 
@@ -30,7 +30,7 @@ Cell::Cell(QGraphicsItem *parent) : QGraphicsItem(parent)
 
     setAcceptHoverEvents(true);
 
-    qDebug() << ("Cell::Cell() finished.");
+    // qDebug() << ("Cell::Cell() finished.");
 }
 
 void Cell::clear()
