@@ -59,6 +59,11 @@ public:
 
     virtual bool setLokoInReverse(int address, bool auxFunc, bool direction) = 0;
 
+    inline bool setLokoSpeed(int address, int speed)
+    {
+        return setLokoSpeedAndLight(address, speed, false);
+    }
+
     virtual bool setLokoSpeedAndLight(int address, int speed, bool light=false) = 0;
     virtual bool setLokoFunctions(int address, bool *functions, int numFunctions) = 0;
 

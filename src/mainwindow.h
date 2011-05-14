@@ -58,6 +58,7 @@ public:
     QImage * getBitmapPtr(QString fileName);
 
     void loadPlugins(void);
+    void useInterface(QString interface);
 
     static MainWindow *getInstance();
 
@@ -89,6 +90,10 @@ private:
 
     void loadSettings(void);
     void saveSettings(void);
+
+    bool checkInterface(void);
+
+    void debug(QString msg, QString file, int line);
 
     QActionGroup *m_pActionCommonGroup;
 

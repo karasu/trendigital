@@ -90,7 +90,7 @@
  void PluginDialog::findPlugins(const QString &path,
                                 const QStringList &fileNames)
  {
-     m_pLabel->setText(tr("Tren Digital found the following plugins\n"
+     m_pLabel->setText(tr("Found the following plugins\n"
                        "(looked in %1):")
                     .arg(QDir::toNativeSeparators(path)));
 

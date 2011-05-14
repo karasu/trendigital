@@ -23,6 +23,7 @@
 #include "element.h"
 #include "cell.h"
 #include "document.h"
+#include "traininterface.h"
 
 #include "plugindialog.h"
 
@@ -32,6 +33,8 @@
 #include "dialogs/lokotabbar.h"
 #include "dialogs/lokodock.h"
 #include "dialogs/editlokos.h"
+
+TrainInterface *g_interface = NULL;
 
 MainWindow * MainWindow::m_pInstance = NULL;
 
@@ -49,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    qDebug() << ("Entering MainWindow::MainWindow()");
+    debug("Entering MainWindow constructor", __FILE__, __LINE__);
 
     m_pInstance = this;
 
@@ -66,10 +69,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Load program settings
     loadSettings();
-    qDebug() << ("Program settings loaded.");
-
-    // Load interface plugin
-    // QPluginLoader
+    debug("Program settings loaded.", __FILE__, __LINE__);
 
     // Check serial key
 
@@ -82,12 +82,12 @@ MainWindow::MainWindow(QWidget *parent) :
     // m_pDoc = new Document(this);
     m_pDoc = new Document();
     // m_pDoc->clear();
-    qDebug() << ("New empty document created.");
+    debug("New empty document created.", __FILE__, __LINE__);
 
     // Create lok tab bar (where all lokos are shown)
 
     m_pLokoTabBar = new LokoTabBar(this);
-    qDebug() << ("New Loko Tab Bar created.");
+    debug("New Loko Tab Bar created.", __FILE__, __LINE__);
 
     // QMessageBox::information(this, "Error", "Could not load the plugin");
 
@@ -101,9 +101,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     showEditToolbars(false);
 
-    qDebug() << ("Loading train interfaces");
-    loadPlugins();
-    qDebug() << ("Train interfaces loaded");
+    // Use virtual plugin
+    useInterface("virtual");
 
     // just for testing purposes ************************************************************************************
 
@@ -149,9 +148,9 @@ MainWindow::MainWindow(QWidget *parent) :
     pLoko->m_id = 4;
     m_pDoc->m_lokos.insert(4, pLoko);
 
-    qDebug() << ("Test lokos created.");
+    debug("Test lokos created.", __FILE__, __LINE__);
 
-    qDebug() << ("MainWindow::MainWindow() finished");
+    debug("MainWindow::MainWindow() finished", __FILE__, __LINE__);
 
 }
 
@@ -161,6 +160,7 @@ MainWindow::~MainWindow()
     {
         delete pActionGroup;
     }
+
     m_actionGroups.clear();
 
     delete m_pDoc;
@@ -170,56 +170,6 @@ MainWindow::~MainWindow()
     delete ui;
 
     delete m_printer;
-}
-
-void MainWindow::loadPlugins()
-{
-    // foreach (QObject *plugin, QPluginLoader::staticInstances())
-    //    populateMenus(plugin);
-
-    m_pluginsDir = QDir(qApp->applicationDirPath());
-
-#if defined(Q_OS_WIN)
-    if (m_pluginsDir.dirName().toLower() == "debug" || m_pluginsDir.dirName().toLower() == "release")
-    {
-        m_pluginsDir.cdUp();
-    }
-#elif defined(Q_OS_MAC)
-    if (m_pluginsDir.dirName() == "MacOS")
-    {
-        m_pluginsDir.cdUp();
-        m_pluginsDir.cdUp();
-        m_pluginsDir.cdUp();
-    }
-#endif
-
-    m_pluginsDir.cd("plugins");
-
-    foreach (QString fileName, m_pluginsDir.entryList(QDir::Files))
-    {
-        QPluginLoader loader(m_pluginsDir.absoluteFilePath(fileName));
-        QObject *plugin = loader.instance();
-        if (plugin)
-        {
-            qDebug() << QString("Loaded train interface: ") + fileName;
-            // populateMenus(plugin);
-            m_pluginFileNames += fileName;
-        }
-        else
-        {
-            qDebug() << loader.errorString();
-        }
-    }
-
-    if (m_pluginFileNames.count() == 0)
-    {
-        qDebug() << ("No train interface plugin found!");
-    }
-    /*
-    brushMenu->setEnabled(!brushActionGroup->actions().isEmpty());
-    shapesMenu->setEnabled(!shapesMenu->actions().isEmpty());
-    filterMenu->setEnabled(!filterMenu->actions().isEmpty());
-    */
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -488,7 +438,7 @@ Document * MainWindow::getDocument()
 
 void MainWindow::onEditLokos()
 {
-    qDebug() << ("MainWindow::onEditLokos()");
+    debug("MainWindow::onEditLokos()", __FILE__, __LINE__);
 
     EditLokos *editLokos = new EditLokos(this);
 
@@ -515,19 +465,19 @@ void MainWindow::onAboutInterfaces()
 
 void MainWindow::onInsertElement(QAction *pAction)
 {
-    qDebug() << ("MainWindow::onInsertElement");
+    debug("MainWindow::onInsertElement", __FILE__, __LINE__);
 
     if (pAction != NULL && m_pView != NULL)
     {
         if (pAction->isChecked())
         {
-            qDebug() << ("MainWindow::onInsertElement: Changing current element icon and id to " + pAction->text());
+            debug("MainWindow::onInsertElement: Changing current element icon and id to " + pAction->text(), __FILE__, __LINE__);
             m_pView->setCurrentElementIcon(pAction->icon());
             m_pView->setCurrentElementId(pAction->text());
         }
         else
         {
-            qDebug() << ("MainWindow::onInsertElement: Changing current element to INVALID");
+            debug("MainWindow::onInsertElement: Changing current element to INVALID", __FILE__, __LINE__);
             m_pView->setCurrentElementId(INVALID);
         }
     }
@@ -551,12 +501,14 @@ void MainWindow::onInterfaceGo()
                 if (addr > 0)
                 {
                     int speed = m_pDoc->m_lokos[i]->m_speed;
-                    /*
-                    if (!g_interface.setLocomotiveSpeed(addr, speed))
+
+                    if (checkInterface())
                     {
-                        qDebug() << ("Can't comunicate with the interface!") + __FILE__;
+                        if (!g_interface->setLokoSpeed(addr, speed))
+                        {
+                            debug("Can't comunicate with the interface! ", __FILE__, __LINE__);
+                        }
                     }
-                    */
                 }
             }
         }
@@ -564,7 +516,7 @@ void MainWindow::onInterfaceGo()
 
     m_programsPaused = FALSE;
 
-    qDebug() << ("A general GO command has been issued.");
+    debug("A general GO command has been issued.", __FILE__, __LINE__);
 
 }
 
@@ -585,12 +537,13 @@ void MainWindow::onInterfaceStop()
 
                 if (addr > 0)
                 {
-                    /*
-                    if (!g_interface.setLocomotiveSpeed(addr, 0))
+                    if (checkInterface())
                     {
-                        qDebug() << ("Can't comunicate with the interface!" + __FILE__);
+                        if (!g_interface->setLokoSpeed(addr, 0))
+                        {
+                            debug("Can't comunicate with the interface!", __FILE__, __LINE__);
+                        }
                     }
-                    */
                 }
             }
         }
@@ -598,5 +551,108 @@ void MainWindow::onInterfaceStop()
 
     m_programsPaused = TRUE;
 
-    qDebug() << ("Emergency stop!");
+    debug("Emergency stop!", __FILE__, __LINE__);
+}
+
+bool MainWindow::checkInterface()
+{
+    if (g_interface == NULL)
+    {
+        debug("Interface is not loaded!", __FILE__, __LINE__);
+        return false;
+    }
+
+    return true;
+}
+
+void MainWindow::loadPlugins()
+{
+    // foreach (QObject *plugin, QPluginLoader::staticInstances())
+    //    populateMenus(plugin);
+
+    m_pluginsDir = QDir(qApp->applicationDirPath());
+
+#if defined(Q_OS_WIN)
+    if (m_pluginsDir.dirName().toLower() == "debug" || m_pluginsDir.dirName().toLower() == "release")
+    {
+        m_pluginsDir.cdUp();
+    }
+#elif defined(Q_OS_MAC)
+    if (m_pluginsDir.dirName() == "MacOS")
+    {
+        m_pluginsDir.cdUp();
+        m_pluginsDir.cdUp();
+        m_pluginsDir.cdUp();
+    }
+#endif
+
+    m_pluginsDir.cd("plugins");
+
+    foreach (QString fileName, m_pluginsDir.entryList(QDir::Files))
+    {
+        QPluginLoader loader(m_pluginsDir.absoluteFilePath(fileName));
+        QObject *plugin = loader.instance();
+        if (plugin)
+        {
+            debug("Loaded train interface: " + fileName, __FILE__, __LINE__);
+            // populateMenus(plugin);
+            m_pluginFileNames += fileName;
+        }
+        else
+        {
+            debug(loader.errorString(), __FILE__, __LINE__);
+        }
+    }
+
+    if (m_pluginFileNames.count() == 0)
+    {
+        debug("No train interface plugin found!", __FILE__, __LINE__);
+    }
+    /*
+    brushMenu->setEnabled(!brushActionGroup->actions().isEmpty());
+    shapesMenu->setEnabled(!shapesMenu->actions().isEmpty());
+    filterMenu->setEnabled(!filterMenu->actions().isEmpty());
+    */
+
+    debug("Train interfaces loaded", __FILE__, __LINE__);
+}
+
+void MainWindow::useInterface(QString interfaceName)
+{
+    if (m_pluginFileNames.length() <= 0)
+    {
+        loadPlugins();
+    }
+
+    if (m_pluginFileNames.length() <= 0)
+    {
+        debug("Error loading plugins!", __FILE__, __LINE__);
+    }
+    else
+    {
+        foreach (QString fileName, m_pluginsDir.entryList(QDir::Files))
+        {
+            QPluginLoader loader(m_pluginsDir.absoluteFilePath(fileName));
+            QObject *plugin = loader.instance();
+            if (plugin)
+            {
+                TrainInterface *pTrain = qobject_cast<TrainInterface *>(plugin);
+
+                if (pTrain && pTrain->name().lower() == interfaceName.lower())
+                {
+                    debug("Using " + interfaceName + " interface.", __FILE__, __LINE__);
+                    g_interface = pTrain;
+                }
+            }
+        }
+    }
+}
+
+void MainWindow::debug(QString msg, QString file, int line)
+{
+    QString strline;
+
+    strline.setNum(line);
+
+    qDebug() << file + (":") + strline + (": ") + msg;
 }
