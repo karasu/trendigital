@@ -12,4 +12,4 @@ TEMPLATE = lib
 DEFINES += MARKLIN_LIBRARY
 SOURCES += marklin.cpp
 HEADERS += marklin.h
-DESTDIR = ../../TrenDigital-build-desktop/plugins
+DESTDIR = ../../../trendigital-build-desktop/plugins

@@ -21,7 +21,7 @@
 #include <QString>
 #include <QtPlugin>
 
-#include "../../TrenDigital/src/traininterface.h"
+#include "traininterface.h"
 
 class Marklin : public QObject, public TrainInterface
 {

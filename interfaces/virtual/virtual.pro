@@ -12,4 +12,4 @@ TEMPLATE = lib
 DEFINES += VIRTUAL_LIBRARY
 SOURCES += virtual.cpp
 HEADERS += virtual.h
-DESTDIR = ../../TrenDigital-build-desktop/plugins
+DESTDIR = ../../../trendigital-build-desktop/plugins

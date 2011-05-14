@@ -21,7 +21,7 @@
 #include <QString>
 #include <QtPlugin>
 
-#include "../../TrenDigital/src/traininterface.h"
+#include "traininterface.h"
 
 class Virtual : public QObject, public TrainInterface
 {
