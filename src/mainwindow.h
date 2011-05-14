@@ -70,6 +70,8 @@ public:
     QDir m_pluginsDir;
     QStringList m_pluginFileNames;
 
+    bool m_programsPaused;
+
 private:
     Ui::MainWindow *ui;
 
@@ -105,6 +107,8 @@ private slots:
     void onPrinterSetup(void);
     void onEditMode(bool checked=false);
     void onInsertElement(QAction *pAction);
+    void onInterfaceGo(void);
+    void onInterfaceStop(void);
 };
 
 #endif // MAINWINDOW_H

@@ -255,6 +255,8 @@ void MainWindow::addConnections()
     connect(ui->actionConfigurar_impresora, SIGNAL(triggered()), this, SLOT(onPrinterSetup()));
     connect(ui->actionMode_edicio, SIGNAL(triggered(bool)), this, SLOT(onEditMode(bool)));
     connect(ui->actionSobre_Interficies, SIGNAL(triggered()), this, SLOT(onAboutInterfaces()));
+    connect(ui->actionPararTot, SIGNAL(triggered()), this, SLOT(onInterfaceStop()));
+    connect(ui->actionEnjegarTot, SIGNAL(triggered()), this, SLOT(onInterfaceGo()));
 
     // EditToolbar actions
     QActionGroup *pActionGroup = new QActionGroup(ui->editToolBar);
@@ -529,4 +531,72 @@ void MainWindow::onInsertElement(QAction *pAction)
             m_pView->setCurrentElementId(INVALID);
         }
     }
+}
+
+void MainWindow::onInterfaceGo()
+{
+    if (m_pDoc != NULL)
+    {
+        Loko *pLoko = NULL;
+        int addr = 0;
+
+        for (int i=0; i<m_pDoc->m_lokos.count(); i++)
+        {
+            pLoko = m_pDoc->m_lokos[i];
+
+            if (pLoko != NULL)
+            {
+                addr = pLoko->m_address;
+
+                if (addr > 0)
+                {
+                    int speed = m_pDoc->m_lokos[i]->m_speed;
+                    /*
+                    if (!g_interface.setLocomotiveSpeed(addr, speed))
+                    {
+                        qDebug() << ("Can't comunicate with the interface!") + __FILE__;
+                    }
+                    */
+                }
+            }
+        }
+    }
+
+    m_programsPaused = FALSE;
+
+    qDebug() << ("A general GO command has been issued.");
+
+}
+
+void MainWindow::onInterfaceStop()
+{
+    if (m_pDoc != NULL)
+    {
+        Loko *pLoko = NULL;
+        int addr = 0;
+
+        for (int i=0; i<m_pDoc->m_lokos.count(); i++)
+        {
+            pLoko = m_pDoc->m_lokos[i];
+
+            if (pLoko != NULL)
+            {
+                addr = pLoko->m_address;
+
+                if (addr > 0)
+                {
+                    /*
+                    if (!g_interface.setLocomotiveSpeed(addr, 0))
+                    {
+                        qDebug() << ("Can't comunicate with the interface!" + __FILE__);
+                    }
+                    */
+                }
+            }
+        }
+    }
+
+    m_programsPaused = TRUE;
+
+    qDebug() << ("Emergency stop!");
 }
