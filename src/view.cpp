@@ -25,8 +25,6 @@
 
 View::View(QWidget *parent) : QGraphicsView(parent)
 {
-    debug("Entering View::View()", __FILE__, __LINE__);
-
     // Set-up the scene
     QGraphicsScene *pScene = new QGraphicsScene(this);
 
