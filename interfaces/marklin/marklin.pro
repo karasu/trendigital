@@ -6,7 +6,8 @@
 
 QT       += network
 QT       -= gui
-CONFIG += plugin
+CONFIG += plugin qxt
+QXT = core
 TARGET = marklin
 TEMPLATE = lib
 DEFINES += MARKLIN_LIBRARY
