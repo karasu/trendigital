@@ -26,72 +26,121 @@ QString Marklin::version()
     return QString("0.0.1");
 }
 
-bool Marklin::read(int *value, bool sleep)
+bool Marklin::read(int *value)
 {
-    // fixme
+    char tmp;
+
+    if (m_serial.read(&tmp, 1) > 0)
+    {
+        *value = (int)tmp;
+        return true;
+    }
+
     return false;
 }
 
-bool Marklin::write(int value, bool sleep, bool purge)
+bool Marklin::write(int value)
 {
-    // fixme
+    char tmp = (char)value;
+
+    m_serial.flush();
+
+    if (m_serial.write(&tmp, 1) > 0)
+    {
+        return true;
+    }
+
     return false;
 }
 
-bool Marklin::read(BYTE *msg, DWORD bytesToRead, bool sleep)
+bool Marklin::read(BYTE *msg, DWORD bytesToRead)
 {
-    // fixme
+    // not used in this interface
     return false;
 }
 
-bool Marklin::write(BYTE *msg, DWORD bytesToWrite, bool sleep, bool purge)
+bool Marklin::write(BYTE *msg, DWORD bytesToWrite)
 {
-    // fixme
+    // not used in this interface
     return false;
 }
 
-void Marklin::open()
+bool Marklin::open()
 {
-    // fixme
+    return m_serial.open(QextSerialPort::ReadWrite);
 }
 
 void Marklin::close()
 {
-    // fixme
+    m_serial.close();
 }
 
-void Marklin::purge()
+void Marklin::flush()
 {
-    // fixme
+    m_serial.flush();
 }
 
 bool Marklin::isOpen()
 {
-    // fixme
-    return false;
+    return m_serial.isOpen();
 }
 
 void Marklin::setDefaultSetup()
 {
-    // fixme
+    #ifdef _TTY_POSIX_
+        m_serial.setPortName("/dev/ttyS0");
+    #else
+        m_serial.setPortName("COM1");
+    #endif
+
+    m_serial.setBaudRate(BAUD2400);
+    m_serial.setDataBits(DATA_8);
+    m_serial.setStopBits(STOP_2);
+    m_serial.setParity(PAR_NONE);
+    m_serial.setFlowControl(FLOW_HARDWARE);
+    m_serial.setQueryMode(QextSerialPort::Polling);
+    m_serial.setTimeout(200); // set timeout to 200 ms
 }
 
 bool Marklin::stop()
 {
-    // fixme
-    return false;
+    return write(0x61);
 }
 
 bool Marklin::go()
 {
-    // fixme
-    return false;
+    return write(0x60);
 }
 
 bool Marklin::setLokoInReverse(int address, bool auxFunc, bool direction)
 {
-    // fixme
-    return false;
+    direction = true; // not used in this interface
+
+    bool ok = true;
+
+    if (address < 1 || address > 80)
+    {
+        ok = false;
+    }
+
+    int aux = 0;
+
+    if (auxFunc)
+    {
+        aux = 16;
+    }
+
+    int val = aux;
+
+    if (!write(val)) ok = false;
+    if (!write(address)) ok = false;
+
+    val = 15 + aux;
+
+    if (!write(val)) ok = false;
+    if (!write(address)) ok = false;
+
+    return ok;
 }
 
 bool Marklin::setLokoSpeedAndLight(int address, int speed, bool light)
@@ -167,39 +216,36 @@ void Marklin::reverse(void)
     // fixme
 }
 
-// New for TCPIP Interfaces
+/* **************************
+   New for TCPIP Interfaces.
+   Not used in this interface
+   ************************** */
 
 void Marklin::storeLoko(int address, char *name, int *id)
 {
-    // fixme
 }
 
 bool Marklin::deleteAllLokos()
 {
-    // fixme
     return false;
 }
 
 void Marklin::storeSwitch(int address, int *id)
 {
-    // fixme
 }
 
 bool Marklin::deleteAllSwitches()
 {
-    // fixme
     return false;
 }
 
 int Marklin::getMFXLokosInfo(int *id, int *address, QString *name)
 {
-    // fixme
     return 0;
 }
 
 int Marklin::getMFXSID()
 {
-    // fixme
     return 0;
 }
 

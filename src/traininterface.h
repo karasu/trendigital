@@ -41,15 +41,15 @@ public:
     virtual QString name() = 0;
     virtual QString version() = 0;
 
-    virtual bool read(int *value, bool sleep=false) = 0;
-    virtual bool write(int value, bool sleep=false, bool purge=true) = 0;
+    virtual bool read(int *value) = 0;
+    virtual bool write(int value) = 0;
 
-    virtual bool read(BYTE *msg, DWORD bytesToRead, bool sleep=true) = 0;
-    virtual bool write(BYTE *msg, DWORD bytesToWrite, bool sleep=true, bool purge=true) = 0;
+    virtual bool read(BYTE *msg, DWORD bytesToRead) = 0;
+    virtual bool write(BYTE *msg, DWORD bytesToWrite) = 0;
 
-    virtual void open(void) = 0;
+    virtual bool open(void) = 0;
     virtual void close(void) = 0;
-    virtual void purge(void) = 0;
+    virtual void flush(void) = 0;
     virtual bool isOpen(void) = 0;
 
     virtual void setDefaultSetup(void) = 0;

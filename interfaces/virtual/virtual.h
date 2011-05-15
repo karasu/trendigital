@@ -32,15 +32,15 @@ public:
     QString name();
     QString version();
 
-    bool read(int *value, bool sleep=false);
-    bool write(int value, bool sleep=false, bool purge=true);
+    bool read(int *value);
+    bool write(int value);
 
-    bool read(BYTE *msg, DWORD bytesToRead, bool sleep=true);
-    bool write(BYTE *msg, DWORD bytesToWrite, bool sleep=true, bool purge=true);
+    bool read(BYTE *msg, DWORD bytesToRead);
+    bool write(BYTE *msg, DWORD bytesToWrite);
 
-    void open(void);
+    bool open(void);
     void close(void);
-    void purge(void);
+    void flush(void);
     bool isOpen(void);
 
     void setDefaultSetup(void);

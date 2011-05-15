@@ -7,7 +7,7 @@ QT += core \
     network \
     opengl \
     qt3support
-TARGET = TrenDigital
+TARGET = trendigital
 TEMPLATE = app
 SOURCES += src/main.cpp \
     src/mainwindow.cpp \

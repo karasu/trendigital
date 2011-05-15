@@ -23,19 +23,19 @@ QString Virtual::name() { return QString("virtual"); }
 
 QString Virtual::version() { return QString("0.0.1"); }
 
-bool Virtual::read(int *value, bool sleep) { return true; }
+bool Virtual::read(int *value) { return true; }
 
-bool Virtual::write(int value, bool sleep, bool purge) { return true; }
+bool Virtual::write(int value) { return true; }
 
-bool Virtual::read(BYTE *msg, DWORD bytesToRead, bool sleep) { return true; }
+bool Virtual::read(BYTE *msg, DWORD bytesToRead) { return true; }
 
-bool Virtual::write(BYTE *msg, DWORD bytesToWrite, bool sleep, bool purge) { return true; }
+bool Virtual::write(BYTE *msg, DWORD bytesToWrite) { return true; }
 
-void Virtual::open() {}
+bool Virtual::open() { return true; }
 
 void Virtual::close() {}
 
-void Virtual::purge() {}
+void Virtual::flush() {}
 
 bool Virtual::isOpen() { return true; }
 

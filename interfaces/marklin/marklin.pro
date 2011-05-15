@@ -13,3 +13,6 @@ DEFINES += MARKLIN_LIBRARY
 SOURCES += marklin.cpp
 HEADERS += marklin.h
 DESTDIR = ../../../trendigital-build-desktop/plugins
+INCLUDEPATH += /usr/local/include
+LIBPATH += /usr/local/lib
+LIBS += -lqextserialport

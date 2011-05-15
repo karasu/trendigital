@@ -1,0 +1,3 @@
+To get source code of qextserialport (with mercurial):
+
+hg clone https://qextserialport.googlecode.com/hg/ qextserialport

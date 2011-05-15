@@ -22,6 +22,7 @@
 #include <QtPlugin>
 
 #include "traininterface.h"
+#include "qextserialport.h"
 
 class Marklin : public QObject, public TrainInterface
 {
@@ -32,15 +33,15 @@ public:
     QString name();
     QString version();
 
-    bool read(int *value, bool sleep=false);
-    bool write(int value, bool sleep=false, bool purge=true);
+    bool read(int *value);
+    bool write(int value);
 
-    bool read(BYTE *msg, DWORD bytesToRead, bool sleep=true);
-    bool write(BYTE *msg, DWORD bytesToWrite, bool sleep=true, bool purge=true);
+    bool read(BYTE *msg, DWORD bytesToRead);
+    bool write(BYTE *msg, DWORD bytesToWrite);
 
-    void open(void);
+    bool open(void);
     void close(void);
-    void purge(void);
+    void flush(void);
     bool isOpen(void);
 
     void setDefaultSetup(void);
@@ -67,6 +68,8 @@ public:
     void writeDirectionAndLightInfo(int *byte);
     void emergencyStop(void);
     void reverse(void);
+
+    QextSerialPort m_serial;
 
     // New for TCPIP Interfaces
 
