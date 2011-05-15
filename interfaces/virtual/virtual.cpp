@@ -77,11 +77,11 @@ void Virtual::reverse() {}
 
 void Virtual::storeLoko(int address, char *name, int *id) {}
 
-bool Virtual::deleteAllLokos() {}
+bool Virtual::deleteAllLokos() { return true; }
 
 void Virtual::storeSwitch(int address, int *id) {}
 
-bool Virtual::deleteAllSwitches() {}
+bool Virtual::deleteAllSwitches() { return true; }
 
 int Virtual::getMFXLokosInfo(int *id, int *address, QString *name) { return 0; }
 
