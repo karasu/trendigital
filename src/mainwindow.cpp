@@ -194,23 +194,33 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::addConnections()
 {
+    // file menu
     connect(ui->actionNou, SIGNAL(triggered()), this, SLOT(onNew()));
     connect(ui->actionObrir, SIGNAL(triggered()), this, SLOT(onOpen()));
     connect(ui->actionSortir, SIGNAL(triggered()), this, SLOT(onExit()));
     connect(ui->actionGuardar, SIGNAL(triggered()), this, SLOT(onSave()));
     connect(ui->actionGuardar_com, SIGNAL(triggered()), this, SLOT(onSaveAs()));
-    connect(ui->actionInsertar_text, SIGNAL(triggered()), this, SLOT(onInsertText()));
-    connect(ui->actionBarra_locomotores, SIGNAL(triggered()), this, SLOT(onShowLokTabBar()));
-    connect(ui->actionSobre_TrenDigital, SIGNAL(triggered()), this, SLOT(onAbout()));
-    connect(ui->actionSobre_QT, SIGNAL(triggered()), this, SLOT(onAboutQT()));
-    connect(ui->actionLocomotores, SIGNAL(triggered()), this, SLOT(onEditLokos()));
     connect(ui->actionConfigurar_impresora, SIGNAL(triggered()), this, SLOT(onPrinterSetup()));
+
+    // edit menu
+    connect(ui->actionInsertar_text, SIGNAL(triggered()), this, SLOT(onInsertText()));
+    connect(ui->actionLocomotores, SIGNAL(triggered()), this, SLOT(onEditLokos()));
+
+    // view menu
+    connect(ui->actionBarra_locomotores, SIGNAL(triggered()), this, SLOT(onShowLokTabBar()));
     connect(ui->actionMode_edicio, SIGNAL(triggered(bool)), this, SLOT(onEditMode(bool)));
-    connect(ui->actionSobre_Interficies, SIGNAL(triggered()), this, SLOT(onAboutInterfaces()));
+
+    // Actions menu
     connect(ui->actionPararTot, SIGNAL(triggered()), this, SLOT(onInterfaceStop()));
     connect(ui->actionEnjegarTot, SIGNAL(triggered()), this, SLOT(onInterfaceGo()));
 
+    // help menu
+    connect(ui->actionSobre_TrenDigital, SIGNAL(triggered()), this, SLOT(onAbout()));
+    connect(ui->actionSobre_QT, SIGNAL(triggered()), this, SLOT(onAboutQT()));
+    connect(ui->actionSobre_Interficies, SIGNAL(triggered()), this, SLOT(onAboutInterfaces()));
+
     // EditToolbar actions
+    // fixme: falten icones!
     QActionGroup *pActionGroup = new QActionGroup(ui->editToolBar);
     pActionGroup->addAction(ui->actionCommon_33000_0);
     pActionGroup->addAction(ui->actionCommon_33001_0);
@@ -240,27 +250,7 @@ void MainWindow::addConnections()
     m_actionGroups.insert("Common", pActionGroup);
 }
 
-void MainWindow::onEditMode(bool checked)
-{
-    if (m_pView != NULL)
-    {
-        m_pView->setEditMode(checked);
-    }
-
-    showEditToolbars(checked);
-}
-
-void MainWindow::showEditToolbars(bool checked)
-{
-    if (checked)
-    {
-        ui->editToolBar->show();
-    }
-    else
-    {
-        ui->editToolBar->hide();
-    }
-}
+// file menu --------------------------------------------------------
 
 bool MainWindow::askIfSaveBeforeCloseDocument()
 {
@@ -355,42 +345,11 @@ void MainWindow::onExit()
     }
 }
 
-void MainWindow::onAboutQT()
+void MainWindow::onPrinterSetup()
 {
-    qApp->aboutQt();
 }
 
-void MainWindow::onAbout()
-{
-    QMessageBox::about(this, tr("Sobre Tren Digital"),
-    tr("<h2>Tren Digital 0.1.12</h2>"
-    "<p>Copyright &copy; 2010 Egara SYG</p>"
-    "<p>Tren Digital &eacute;s una apliaci&oacute; que permet "
-    "controlar un circuit de tren digitalment des de "
-    "l'ordinador.</p>"));
-}
-
-void MainWindow::loadSettings()
-{
-    QSettings settings;
-    settings.beginGroup("MainWindow");
-
-    resize(settings.value("size", QSize(640, 480)).toSize());
-    move(settings.value("position", QPoint(200, 200)).toPoint());
-
-    settings.endGroup();
-}
-
-void MainWindow::saveSettings()
-{ 
-    QSettings settings;
-    settings.beginGroup("MainWindow");
-
-    settings.setValue("size", size());
-    settings.setValue("position", pos());
-
-    settings.endGroup();
-}
+// edit menu --------------------------------------------------------
 
 void MainWindow::onInsertText()
 {
@@ -409,35 +368,6 @@ void MainWindow::onInsertText()
     }
 }
 
-void MainWindow::onShowLokTabBar()
-{
-    QAction *pSender = qobject_cast<QAction *>(sender());
-
-    if (pSender->isChecked())
-    {
-        m_pLokoTabBar->show();
-    }
-    else
-    {
-        m_pLokoTabBar->hide();
-    }
-}
-
-QString MainWindow::getLokoImageFileName(int index)
-{
-    return m_pDoc->getLokoImageFileName(index);
-}
-
-LokoDock * MainWindow::getLokoDock(int id)
-{
-    return m_pLokoTabBar->getLokoDock(id);
-}
-
-Document * MainWindow::getDocument()
-{
-    return m_pDoc;
-}
-
 void MainWindow::onEditLokos()
 {
     debug("MainWindow::onEditLokos()", __FILE__, __LINE__);
@@ -450,40 +380,48 @@ void MainWindow::onEditLokos()
     editLokos->exec();
 }
 
-void MainWindow::onPrinterSetup()
-{
-}
+// view menu --------------------------------------------------------
 
-QImage * MainWindow::getBitmapPtr(QString fileName)
+void MainWindow::onEditMode(bool checked)
 {
-    return m_dibs.value(fileName, NULL);
-}
-
-void MainWindow::onAboutInterfaces()
-{
-    PluginDialog dialog(m_pluginsDir.path(), m_pluginFileNames, this);
-    dialog.exec();
-}
-
-void MainWindow::onInsertElement(QAction *pAction)
-{
-    debug("MainWindow::onInsertElement", __FILE__, __LINE__);
-
-    if (pAction != NULL && m_pView != NULL)
+    if (m_pView != NULL)
     {
-        if (pAction->isChecked())
+        m_pView->setEditMode(checked);
+    }
+
+    showEditToolbars(checked);
+}
+
+void MainWindow::showEditToolbars(bool checked)
+{
+    if (checked)
+    {
+        ui->editToolBar->show();
+    }
+    else
+    {
+        ui->editToolBar->hide();
+    }
+}
+
+void MainWindow::onShowLokTabBar()
+{
+    QAction *pSender = qobject_cast<QAction *>(sender());
+
+    if (pSender != NULL && m_pLokoTabBar != NULL)
+    {
+        if (pSender->isChecked())
         {
-            debug("MainWindow::onInsertElement: Changing current element icon and id to " + pAction->text(), __FILE__, __LINE__);
-            m_pView->setCurrentElementIcon(pAction->icon());
-            m_pView->setCurrentElementId(pAction->text());
+            m_pLokoTabBar->show();
         }
         else
         {
-            debug("MainWindow::onInsertElement: Changing current element to INVALID", __FILE__, __LINE__);
-            m_pView->setCurrentElementId(INVALID);
+            m_pLokoTabBar->hide();
         }
     }
 }
+
+// actions menu --------------------------------------------------------
 
 void MainWindow::onInterfaceGo()
 {
@@ -554,6 +492,88 @@ void MainWindow::onInterfaceStop()
     m_programsPaused = TRUE;
 
     debug("Emergency stop!", __FILE__, __LINE__);
+}
+
+// help menu -----------------------------------------------------------
+
+void MainWindow::onAboutQT()
+{
+    qApp->aboutQt();
+}
+
+void MainWindow::onAbout()
+{
+    QMessageBox::about(this, tr("Sobre Tren Digital"),
+    tr("<h2>Tren Digital 0.1.12</h2>"
+    "<p>Copyright &copy; 2010 Egara SYG</p>"
+    "<p>Tren Digital &eacute;s una apliaci&oacute; que permet "
+    "controlar un circuit de tren digitalment des de "
+    "l'ordinador.</p>"));
+}
+
+void MainWindow::onAboutInterfaces()
+{
+    PluginDialog dialog(m_pluginsDir.path(), m_pluginFileNames, this);
+    dialog.exec();
+}
+
+// misc functions ------------------------------------------------------
+
+void MainWindow::loadSettings()
+{
+    QSettings settings;
+    settings.beginGroup("MainWindow");
+
+    resize(settings.value("size", QSize(640, 480)).toSize());
+    move(settings.value("position", QPoint(200, 200)).toPoint());
+
+    settings.endGroup();
+}
+
+void MainWindow::saveSettings()
+{ 
+    QSettings settings;
+    settings.beginGroup("MainWindow");
+
+    settings.setValue("size", size());
+    settings.setValue("position", pos());
+
+    settings.endGroup();
+}
+
+QString MainWindow::getLokoImageFileName(int index)
+{
+    return m_pDoc->getLokoImageFileName(index);
+}
+
+LokoDock * MainWindow::getLokoDock(int id)
+{
+    return m_pLokoTabBar->getLokoDock(id);
+}
+
+Document * MainWindow::getDocument()
+{
+    return m_pDoc;
+}
+
+void MainWindow::onInsertElement(QAction *pAction)
+{
+    debug("MainWindow::onInsertElement", __FILE__, __LINE__);
+
+    if (pAction != NULL && m_pView != NULL)
+    {
+        if (pAction->isChecked())
+        {
+            debug("MainWindow::onInsertElement: Changing current element icon and id to " + pAction->text(), __FILE__, __LINE__);
+            m_pView->setCurrentElementIcon(pAction->icon());
+            m_pView->setCurrentElementId(pAction->text());
+        }
+        else
+        {
+            debug("MainWindow::onInsertElement: Changing current element to INVALID", __FILE__, __LINE__);
+            m_pView->setCurrentElementId(INVALID);
+        }
+    }
 }
 
 void MainWindow::loadPlugins()

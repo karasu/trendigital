@@ -54,16 +54,12 @@ public:
 
     Document *getDocument(void);
 
-    QImage * getBitmapPtr(QString fileName);
-
     void loadPlugins(void);
     void useInterface(QString interface);
 
     static MainWindow *getInstance();
 
     QPrinter *m_printer;
-
-    QMap<QString,QImage *> m_dibs;
 
     QMap<QString,QActionGroup *> m_actionGroups;
 
