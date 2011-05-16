@@ -207,8 +207,6 @@ bool Marklin::setLokoFunctions(int address, bool *functions, int numFunctions)
 
 bool Marklin::switchElement(int address, bool on)
 {
-    // fixme
-    /*
     bool ok = true;
 
     if (address < 0 || address > 255)
@@ -223,71 +221,96 @@ bool Marklin::switchElement(int address, bool on)
         val = 34;
     }
 
-    BOOL bResult = FALSE;
+    int stopOp = 32;
 
-    int iStopOp = 32;
+    if (!Write(val)) ok = false;
+    if (!Write(address)) ok = false;
+    if (!Write(stopOp)) ok = false;
 
-    WaitAndBlock();
-
-    if (Write(iValue) && Write(iAddress) && Write(iStopOp))
-    {
-            bResult = TRUE;
-    }
-
-    Unblock();
-
-    return bResult;
-    */
+    return ok;
 }
 
 bool Marklin::readFeedBackModule(int module, bool *status)
 {
-    // fixme
-    return false;
+    bool ok = true;
+
+    if (module < 1 || module > 31)
+    {
+        ok = false;
+    }
+
+    int ask = 192 + module;
+
+    int val1 = 0, val2 = 0;
+
+    for (int i=0; i<16; i++)
+    {
+        status[i] = false;
+    }
+
+    if (!Write(ask))  ok = false;
+    sleep(50);
+    if (!Read(&val1)) ok = false;
+    sleep(50);
+    if (!Read(&val2)) ok = false;
+
+    if (ok)
+    {
+        for (int i=7; i>=0; i--)
+        {
+            status[i] = val1 % 2;
+            val1 = val1 >> 1;
+
+            status[i+8] = val2 % 2;
+            val2 = val2 >> 1;
+        }
+    }
+
+    return ok;
 }
 
 bool Marklin::readFeedBackModules(bool *status)
 {
-    // fixme
+    // not available in this interface
     return false;
 }
 
 bool Marklin::restartFeedbackReading()
 {
-    // fixme
+    // not available in this interface
     return false;
 }
 
 void Marklin::convertLokoSpeed(int speed)
 {
-    // fixme
+    // not available in this interface
 }
 
 bool Marklin::writeLokoInfo(int address)
 {
-    // fixme
+    // not available in this interface
     return false;
 }
 
 bool Marklin::readLokoInfo(int address)
 {
-    // fixme
+    // not available in this interface
     return false;
 }
 
 void Marklin::readDirectionAndLightInfo(int byte)
 {
-    // fixme
+    // not available in this interface
 }
 
 void Marklin::writeDirectionAndLightInfo(int *byte)
 {
-    // fixme
+    // not available in this interface
 }
 
 void Marklin::emergencyStop(void)
 {
-    // fixme
+    // stop?
 }
 
 void Marklin::reverse(void)
@@ -295,36 +318,37 @@ void Marklin::reverse(void)
     // fixme
 }
 
-/* **************************
-   New for TCPIP Interfaces.
-   Not used in this interface
-   ************************** */
-
 void Marklin::storeLoko(int address, char *name, int *id)
 {
+    // not available in this interface
 }
 
 bool Marklin::deleteAllLokos()
 {
+    // not available in this interface
     return false;
 }
 
 void Marklin::storeSwitch(int address, int *id)
 {
+    // not available in this interface
 }
 
 bool Marklin::deleteAllSwitches()
 {
+    // not available in this interface
     return false;
 }
 
 int Marklin::getMFXLokosInfo(int *id, int *address, QString *name)
 {
+    // not available in this interface
     return 0;
 }
 
 int Marklin::getMFXSID()
 {
+    // not available in this interface
     return 0;
 }
 
