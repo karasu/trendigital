@@ -87,10 +87,10 @@ bool Marklin::isOpen()
 
 void Marklin::setDefaultSetup()
 {
-    #ifdef _TTY_POSIX_
-        m_serial.setPortName("/dev/ttyS0");
-    #else
+    #if defined(Q_OS_WIN)
         m_serial.setPortName("COM1");
+    #else
+        m_serial.setPortName("/dev/ttyS0");
     #endif
 
     m_serial.setBaudRate(BAUD2400);
