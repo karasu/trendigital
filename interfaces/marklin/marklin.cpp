@@ -14,6 +14,8 @@
     You should have received a copy of the GNU General Public License
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
+#include <math.h>
+
 #include "marklin.h"
 
 QString Marklin::name()
@@ -165,9 +167,9 @@ bool Marklin::setLokoSpeedAndLight(int address, int speed, bool light)
 
     int val = speed + auxFunc;
 
-    if (!Write(val)) { ok = false; }
+    if (!write(val)) { ok = false; }
 
-    if (!Write(address)) { ok = false; }
+    if (!write(address)) { ok = false; }
 
     return ok;
 }
@@ -196,11 +198,9 @@ bool Marklin::setLokoFunctions(int address, bool *functions, int numFunctions)
 
     val += 64;
 
-    WaitAndBlock();
+    if (!write(val)) ok = false;
 
-    if (!Write(val)) ok = false;
-
-    if (!Write(address)) ok = false;
+    if (!write(address)) ok = false;
 
     return ok;
 }
@@ -223,9 +223,9 @@ bool Marklin::switchElement(int address, bool on)
 
     int stopOp = 32;
 
-    if (!Write(val)) ok = false;
-    if (!Write(address)) ok = false;
-    if (!Write(stopOp)) ok = false;
+    if (!write(val)) ok = false;
+    if (!write(address)) ok = false;
+    if (!write(stopOp)) ok = false;
 
     return ok;
 }
@@ -248,11 +248,11 @@ bool Marklin::readFeedBackModule(int module, bool *status)
         status[i] = false;
     }
 
-    if (!Write(ask))  ok = false;
+    if (!write(ask))  ok = false;
     sleep(50);
-    if (!Read(&val1)) ok = false;
+    if (!read(&val1)) ok = false;
     sleep(50);
-    if (!Read(&val2)) ok = false;
+    if (!read(&val2)) ok = false;
 
     if (ok)
     {
