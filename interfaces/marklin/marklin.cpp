@@ -145,20 +145,99 @@ bool Marklin::setLokoInReverse(int address, bool auxFunc, bool direction)
 
 bool Marklin::setLokoSpeedAndLight(int address, int speed, bool light)
 {
-    // fixme
-    return false;
+    bool ok = true;
+
+    if (address < 0 || address > 80 || speed < 0)
+    {
+        ok = false;
+    }
+
+    // Speed goes from 0 to 100. We have to convert it!
+
+    speed = (int)((float)speed * 0.14f);
+
+    int auxFunc = 0;
+
+    if (light)
+    {
+        auxFunc = 16;
+    }
+
+    int val = speed + auxFunc;
+
+    if (!Write(val)) { ok = false; }
+
+    if (!Write(address)) { ok = false; }
+
+    return ok;
 }
 
 bool Marklin::setLokoFunctions(int address, bool *functions, int numFunctions)
 {
-    // fixme
-    return false;
+    bool ok = true;
+
+    if (address < 0 || address > 80)
+    {
+        ok = false;
+    }
+
+    int val = 0;
+
+    // Marklin 6021 only supports 4 functions per loko
+    const int elements = 4;
+
+    for (int i=0; i<elements; i++)
+    {
+        if (functions[i])
+        {
+            val += (int)pow(2, i);
+        }
+    }
+
+    val += 64;
+
+    WaitAndBlock();
+
+    if (!Write(val)) ok = false;
+
+    if (!Write(address)) ok = false;
+
+    return ok;
 }
 
 bool Marklin::switchElement(int address, bool on)
 {
     // fixme
-    return false;
+    /*
+    bool ok = true;
+
+    if (address < 0 || address > 255)
+    {
+        ok = false;
+    }
+
+    int val = 33;
+
+    if (on)
+    {
+        val = 34;
+    }
+
+    BOOL bResult = FALSE;
+
+    int iStopOp = 32;
+
+    WaitAndBlock();
+
+    if (Write(iValue) && Write(iAddress) && Write(iStopOp))
+    {
+            bResult = TRUE;
+    }
+
+    Unblock();
+
+    return bResult;
+    */
 }
 
 bool Marklin::readFeedBackModule(int module, bool *status)
