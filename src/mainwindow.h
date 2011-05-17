@@ -91,22 +91,33 @@ private:
     QActionGroup *m_pActionCommonGroup;
 
 private slots:
+    // file menu
     void onExit(void);
     void onNew(void);
     void onOpen(void);
     void onSave(void);
     void onSaveAs(void);
+    void onPrinterSetup(void);
+
+    // edit menu
+    void onEditLokos(void);
+    void onPrograms(void);
     void onInsertText(void);
+
+    // view menu
+    void onEditMode(bool checked=false);
     void onShowLokTabBar(void);
+
+    // actions menu
+    void onInterfaceGo(void);
+    void onInterfaceStop(void);
+
+    // help menu
     void onAbout(void);
     void onAboutQT(void);
     void onAboutInterfaces(void);
-    void onEditLokos(void);
-    void onPrinterSetup(void);
-    void onEditMode(bool checked=false);
+
     void onInsertElement(QAction *pAction);
-    void onInterfaceGo(void);
-    void onInterfaceStop(void);
 };
 
 #endif // MAINWINDOW_H

@@ -200,10 +200,13 @@ void MainWindow::addConnections()
     connect(ui->actionGuardar, SIGNAL(triggered()), this, SLOT(onSave()));
     connect(ui->actionGuardar_com, SIGNAL(triggered()), this, SLOT(onSaveAs()));
     connect(ui->actionConfigurar_impresora, SIGNAL(triggered()), this, SLOT(onPrinterSetup()));
+    // onExit()
 
     // edit menu
-    connect(ui->actionInsertar_text, SIGNAL(triggered()), this, SLOT(onInsertText()));
+
     connect(ui->actionLocomotores, SIGNAL(triggered()), this, SLOT(onEditLokos()));
+    connect(ui->actionProgrames_i_rutes, SIGNAL(triggered()), this, SLOT(onPrograms()));
+    connect(ui->actionInsertar_text, SIGNAL(triggered()), this, SLOT(onInsertText()));
 
     // view menu
     connect(ui->actionBarra_locomotores, SIGNAL(triggered()), this, SLOT(onShowLokTabBar()));
@@ -350,6 +353,23 @@ void MainWindow::onPrinterSetup()
 
 // edit menu --------------------------------------------------------
 
+void MainWindow::onEditLokos()
+{
+    debug("onEditLokos()", __FILE__, __LINE__);
+
+    EditLokos *editLokos = new EditLokos(this);
+
+    // editLokos->setDocumentLokos(&(getDocument()->m_lokos));
+    editLokos->copyLokosFromDocumentLokos(&(getDocument()->m_lokos));
+
+    editLokos->exec();
+}
+
+void MainWindow::onPrograms()
+{
+    debug("Fix me!", __FILE__, __LINE__);
+}
+
 void MainWindow::onInsertText()
 {
     bool ok;
@@ -365,18 +385,6 @@ void MainWindow::onInsertText()
     {
         // user entered nothing or pressed Cancel
     }
-}
-
-void MainWindow::onEditLokos()
-{
-    debug("MainWindow::onEditLokos()", __FILE__, __LINE__);
-
-    EditLokos *editLokos = new EditLokos(this);
-
-    // editLokos->setDocumentLokos(&(getDocument()->m_lokos));
-    editLokos->copyLokosFromDocumentLokos(&(getDocument()->m_lokos));
-
-    editLokos->exec();
 }
 
 // view menu --------------------------------------------------------
