@@ -31,7 +31,7 @@ extern TrainInterface *g_interface;
 
 Document::Document()
 {
-//    clear();
+    clear();
 
     if (getDigitalSystem().isEmpty())
     {

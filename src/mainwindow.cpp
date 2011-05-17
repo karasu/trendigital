@@ -83,7 +83,6 @@ MainWindow::MainWindow(QWidget *parent) :
     // Create a new empty document by default
     // m_pDoc = new Document(this);
     m_pDoc = new Document();
-    // m_pDoc->clear();
     debug("New empty document created.", __FILE__, __LINE__);
 
     // Create lok tab bar (where all lokos are shown)
