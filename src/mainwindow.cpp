@@ -626,6 +626,7 @@ void MainWindow::loadPlugins()
     {
         debug("No train interface plugin found!", __FILE__, __LINE__);
     }
+
     /*
     brushMenu->setEnabled(!brushActionGroup->actions().isEmpty());
     shapesMenu->setEnabled(!shapesMenu->actions().isEmpty());
