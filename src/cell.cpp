@@ -551,7 +551,7 @@ void Cell::mousePressEvent(QGraphicsSceneMouseEvent *event)
             update(boundingRect());
             break;
 
-        case Qt::MiddleButton:
+        case Qt::MidButton:
             break;
 
         case Qt::RightButton:
