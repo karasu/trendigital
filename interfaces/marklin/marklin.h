@@ -14,15 +14,15 @@
     You should have received a copy of the GNU General Public License
     along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 **************************************************************************/
-#ifndef VIRTUAL_H
-#define VIRTUAL_H
+#ifndef MARKLIN_H
+#define MARKLIN_H
 
 #include <QObject>
 #include <QString>
 #include <QtPlugin>
 
 #include "traininterface.h"
-#include "qextserialport.h"
+#include "../qextserialport/include/qextserialport.h"
 
 class Marklin : public QObject, public TrainInterface
 {
@@ -83,4 +83,4 @@ public:
     int getMFXSID(void);
 };
 
-#endif // VIRTUAL_H
+#endif // MARKLIN_H

@@ -58,12 +58,17 @@ bool Marklin::write(int value)
 bool Marklin::read(BYTE *msg, DWORD bytesToRead)
 {
     // not used in this interface
+    Q_UNUSED(msg);
+    Q_UNUSED(bytesToRead);
+
     return false;
 }
 
 bool Marklin::write(BYTE *msg, DWORD bytesToWrite)
 {
     // not used in this interface
+    Q_UNUSED(msg);
+    Q_UNUSED(bytesToWrite);
     return false;
 }
 
@@ -186,9 +191,9 @@ bool Marklin::setLokoFunctions(int address, bool *functions, int numFunctions)
     int val = 0;
 
     // Marklin 6021 only supports 4 functions per loko
-    const int elements = 4;
+    numFunctions = 4;
 
-    for (int i=0; i<elements; i++)
+    for (int i=0; i<numFunctions; i++)
     {
         if (functions[i])
         {
@@ -272,6 +277,7 @@ bool Marklin::readFeedBackModule(int module, bool *status)
 bool Marklin::readFeedBackModules(bool *status)
 {
     // not available in this interface
+    Q_UNUSED(status);
     return false;
 }
 
@@ -284,28 +290,33 @@ bool Marklin::restartFeedbackReading()
 void Marklin::convertLokoSpeed(int speed)
 {
     // not available in this interface
+    Q_UNUSED(speed);
 }
 
 bool Marklin::writeLokoInfo(int address)
 {
     // not available in this interface
+    Q_UNUSED(address);
     return false;
 }
 
 bool Marklin::readLokoInfo(int address)
 {
     // not available in this interface
+    Q_UNUSED(address);
     return false;
 }
 
 void Marklin::readDirectionAndLightInfo(int byte)
 {
     // not available in this interface
+    Q_UNUSED(byte);
 }
 
 void Marklin::writeDirectionAndLightInfo(int *byte)
 {
     // not available in this interface
+    Q_UNUSED(byte);
 }
 
 void Marklin::emergencyStop(void)
@@ -321,6 +332,9 @@ void Marklin::reverse(void)
 void Marklin::storeLoko(int address, char *name, int *id)
 {
     // not available in this interface
+    Q_UNUSED(address);
+    Q_UNUSED(name);
+    Q_UNUSED(id);
 }
 
 bool Marklin::deleteAllLokos()
@@ -332,6 +346,8 @@ bool Marklin::deleteAllLokos()
 void Marklin::storeSwitch(int address, int *id)
 {
     // not available in this interface
+    Q_UNUSED(address);
+    Q_UNUSED(id);
 }
 
 bool Marklin::deleteAllSwitches()
@@ -343,6 +359,9 @@ bool Marklin::deleteAllSwitches()
 int Marklin::getMFXLokosInfo(int *id, int *address, QString *name)
 {
     // not available in this interface
+    Q_UNUSED(address);
+    Q_UNUSED(name);
+    Q_UNUSED(id);
     return 0;
 }
 
