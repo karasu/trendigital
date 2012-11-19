@@ -14,7 +14,7 @@ DEFINES += QEXTSERIALPORT_USING_SHARED
 SOURCES += marklin.cpp
 HEADERS += marklin.h \
     traininterface.h
-DESTDIR = /home/karasu/trendigital
+DESTDIR = /home/karasu/trendigital/plugins
 INCLUDEPATH += /usr/local/include
 INCLUDEPATH += /home/karasu/trendigital/qextserialport/src
 QMAKE_LIBDIR += /usr/local/lib
