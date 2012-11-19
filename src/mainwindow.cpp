@@ -632,8 +632,6 @@ void MainWindow::loadPlugins()
     shapesMenu->setEnabled(!shapesMenu->actions().isEmpty());
     filterMenu->setEnabled(!filterMenu->actions().isEmpty());
     */
-
-    debug("Train interfaces loaded", __FILE__, __LINE__);
 }
 
 void MainWindow::useInterface(QString interfaceName)

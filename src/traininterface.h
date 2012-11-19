@@ -33,6 +33,10 @@
 // virtual bool switchDetour(int address, bool branch) = 0;
 // virtual bool switchSemaphore(int address, bool red) = 0;
 
+#ifdef Q_OS_WIN
+#include <windows.h> // for Sleep
+#endif
+
 class TrainInterface
 {
 public:
@@ -93,6 +97,20 @@ public:
     virtual int getMFXLokosInfo(int *id, int *address, QString *name) = 0;
     virtual int getMFXSID(void) = 0;
 
+    void sleep(int ms)
+    {
+        if (ms > 0)
+        {
+    #ifdef Q_OS_WIN
+            Sleep(uint(ms));
+    #else
+            struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
+            nanosleep(&ts, NULL);
+    #endif
+        }
+    }
+
+
     // Properties
 
     QMutex m_mutex;
@@ -107,6 +125,7 @@ public:
     QString m_TCPPort;
     QString m_protocol;
 };
+
 
 Q_DECLARE_INTERFACE(TrainInterface, "com.egarasyg.trendigital.traininterface/1.0");
 

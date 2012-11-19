@@ -5,8 +5,8 @@ QT += core \
     gui \
     sql \
     network \
-    opengl \
-    qt3support
+    opengl
+
 TARGET = trendigital
 TEMPLATE = app
 SOURCES += src/main.cpp \
@@ -56,4 +56,4 @@ OTHER_FILES +=
 RESOURCES += icons.qrc \
     bitmaps.qrc
 
-unix|win32: LIBS += -lz
+LIBS += -lz

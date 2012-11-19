@@ -22,7 +22,7 @@
 #include <QtPlugin>
 
 #include "traininterface.h"
-#include "../qextserialport/include/qextserialport.h"
+#include "qextserialport.h"
 
 class Marklin : public QObject, public TrainInterface
 {

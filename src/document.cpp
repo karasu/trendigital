@@ -288,11 +288,16 @@ bool Document::loadCodes(QString fileName, QList<QString> *lines)
 
         data.close();
 
+        debug(fileName + " readed.", __FILE__, __LINE__);
+
         return true;
     }
     else
     {
+        data.close();
+
         debug("Can't open " + fileName, __FILE__, __LINE__);
+
         return false;
     }
 
