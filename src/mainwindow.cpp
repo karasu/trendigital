@@ -595,6 +595,11 @@ void MainWindow::loadPlugins()
     {
         m_pluginsDir.cdUp();
     }
+#elif defined(Q_OS_LINUX)
+    if (m_pluginsDir.dirName().toLower() == "debug" || m_pluginsDir.dirName().toLower() == "release")
+    {
+        m_pluginsDir.cdUp();
+    }
 #elif defined(Q_OS_MAC)
     if (m_pluginsDir.dirName() == "MacOS")
     {
@@ -603,6 +608,8 @@ void MainWindow::loadPlugins()
         m_pluginsDir.cdUp();
     }
 #endif
+
+    debug(m_pluginsDir.absolutePath(), __FILE__, __LINE__);
 
     m_pluginsDir.cd("plugins");
 
@@ -655,7 +662,7 @@ void MainWindow::useInterface(QString interfaceName)
             {
                 TrainInterface *pTrain = qobject_cast<TrainInterface *>(plugin);
 
-                if (pTrain && pTrain->name().lower() == interfaceName.lower())
+                if (pTrain && pTrain->name().toLower() == interfaceName.toLower())
                 {
                     debug("Using \"" + interfaceName + "\" interface.", __FILE__, __LINE__);
                     g_interface = pTrain;

@@ -29,6 +29,7 @@
 #include <QPrintDialog>
 #include <QPrinter>
 #include <QTextDocument>
+#include <QSpinBox>
 
 class Loko;
 

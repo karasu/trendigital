@@ -263,7 +263,9 @@ bool Document::loadCodes(QString fileName, QList<QString> *lines)
 
     data.open(QBuffer::ReadWrite);
 
-    gzFile zf = gzopen(fileName, "rb");
+    QByteArray name = fileName.toLocal8Bit();
+
+    gzFile zf = gzopen(name.data(), "rb");
 
     if (zf != 0)
     {
@@ -970,7 +972,7 @@ int Document::getProgramByName(QString name)
     {
         Program p(m_programs.at(i));
 
-        if (p.getName().lower() == name.lower())
+        if (p.getName().toLower() == name.toLower())
         {
             return i;
         }
@@ -1010,7 +1012,7 @@ void Document::setCurrentProgramByName(QString name)
 {
     for (int i=0; i<(int)m_programs.size(); i++)
     {
-        if (name.lower() == m_programs[i].getName().lower())
+        if (name.toLower() == m_programs[i].getName().toLower())
         {
             m_currentProgram = i;
             return;
@@ -1050,7 +1052,7 @@ void Document::deleteProgramByName(QString name)
 {
     for (int i=0; i<m_programs.size(); i++)
     {
-        if (name.lower() == m_programs[i].getName().lower())
+        if (name.toLower() == m_programs[i].getName().toLower())
         {
             deleteProgram(i);
             return;

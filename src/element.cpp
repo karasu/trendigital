@@ -163,7 +163,7 @@ void Element::draw(QPainter *painter, bool showElementNumber)
     if (m_bitmapNumber >= 0)
     {
         // m_pDibs[m_bitmapNumber]->Stretch(painter, p, s, FALSE);
-        painter->drawPixmap(r, m_dibs.at(m_bitmapNumber).pixmap());
+        painter->drawPixmap(r, m_dibs.at(m_bitmapNumber).pixmap(s.width(), s.height()));
     }
 
     if (showElementNumber)
@@ -186,7 +186,7 @@ void Element::drawThumbnail(QPainter *painter, QPoint p, QSize s)
     {
         // m_pDibs[m_bitmapNumber]->Stretch(painter, p, s, FALSE);
         QRect r(p.x(), p.y(), p.x() + s.width(), p.y() + s.height());
-        painter->drawImage(r, m_dibs.at(m_bitmapNumber).pixmap());
+        painter->drawPixmap(r, m_dibs.at(m_bitmapNumber).pixmap(s.width(), s.height()));
     }
 }
 

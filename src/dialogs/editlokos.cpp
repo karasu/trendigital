@@ -28,7 +28,7 @@ EditLokos::EditLokos(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->address->setMaxValue(LOKO_MAX_ADDRESS);
+    ui->address->setMaximum(LOKO_MAX_ADDRESS);
 
     QPushButton *printButton = new QPushButton(tr("&Imprimir"));
     printButton->setCheckable(false);
@@ -231,15 +231,15 @@ void EditLokos::fillTreeWidget()
         {
             QTreeWidgetItem *pLokoItem = NULL;
 
-            if (pLoko->m_type.upper() == "MOTOROLA")
+            if (pLoko->m_type.toUpper() == "MOTOROLA")
             {
                 pLokoItem = new QTreeWidgetItem(motorola, QTreeWidgetItem::UserType);
             }
-            else if (pLoko->m_type.upper() == "MFX")
+            else if (pLoko->m_type.toUpper() == "MFX")
             {
                 pLokoItem = new QTreeWidgetItem(mfx, QTreeWidgetItem::UserType);
             }
-            else if (pLoko->m_type.upper() == "DCC")
+            else if (pLoko->m_type.toUpper() == "DCC")
             {
                 pLokoItem = new QTreeWidgetItem(dcc, QTreeWidgetItem::UserType);
             }
@@ -397,13 +397,16 @@ void EditLokos::getLokoInfo(int id)
         ui->address->setValue(pLoko->m_address);
 
         // type
-        ui->type->setCurrentText(pLoko->m_type.upper());
+        // ui->type->setCurrentText(pLoko->m_type.upper());
+        int typeIndex = ui->type->findText(pLoko->m_type.toUpper());
+        ui->type->setCurrentIndex(typeIndex);
 
         // brand
         ui->marca->setText(pLoko->m_brand);
 
         // motor
-        ui->engine->setCurrentText(pLoko->m_engine);
+        int engineIndex = ui->engine->findText(pLoko->m_engine);
+        ui->engine->setCurrentIndex(engineIndex);
 
         // description
         ui->description->setText(pLoko->m_description);
@@ -448,7 +451,7 @@ void EditLokos::setLokoInfo(int id)
         pLoko->m_address = ui->address->text().toInt();
 
         // type
-        pLoko->m_type = ui->type->currentText().upper();
+        pLoko->m_type = ui->type->currentText().toUpper();
 
         // brand
         pLoko->m_brand = ui->marca->text();
@@ -486,13 +489,15 @@ void EditLokos::clearLokoInfo()
 
     // type
     // per defecte posem MOTOROLA, segurament serà el més usat
-    ui->type->setCurrentText("MOTOROLA");
+    // ui->type->setEditText("MOTOROLA");
+    int typeIndex = ui->type->findText("MOTOROLA");
+    ui->type->setCurrentIndex(typeIndex);
 
     // brand
     ui->marca->setText("");
 
     // motor
-    ui->engine->setCurrentText("");
+    ui->engine->setCurrentIndex(-1);
 
     // description
     ui->description->setText("");
@@ -626,7 +631,10 @@ void EditLokos::onNewLoko()
                 clearLokoInfo();
 
                 ui->name->setText(name);
-                ui->type->setCurrentText(type);
+
+                int typeIndex = ui->type->findText(type);
+                ui->type->setCurrentIndex(typeIndex);
+
                 ui->address->setValue(address);
 
                 Loko *pNewLoko = new Loko();

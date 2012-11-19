@@ -131,7 +131,7 @@ bool Loko::load(QDataStream & ar, int fileVersion)
     ar >> m_engine;
     ar >> m_name;
     ar >> m_type;
-    m_type = m_type.upper();
+    m_type = m_type.toUpper();
     // ar >> m_controlDlgRect;
     ar >> m_dockVisible;
     ar >> m_light;
@@ -190,7 +190,7 @@ bool Loko::save(QDataStream & ar)
     ar << m_brand;
     ar << m_engine;
     ar << m_name;
-    ar << m_type.upper();
+    ar << m_type.toUpper();
     // ar << m_dockRect;
     ar << m_dockVisible;
     ar << m_light;
