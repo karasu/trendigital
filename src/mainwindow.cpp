@@ -616,10 +616,10 @@ void MainWindow::loadPlugins()
             // populateMenus(plugin);
             m_pluginFileNames += fileName;
         }
-        else
-        {
-            debug(loader.errorString(), __FILE__, __LINE__);
-        }
+//        else
+//        {
+//            debug(loader.errorString(), __FILE__, __LINE__);
+//        }
     }
 
     if (m_pluginFileNames.count() == 0)

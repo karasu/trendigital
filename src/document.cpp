@@ -27,6 +27,10 @@
 #include "debug.h"
 #include "traininterface.h"
 
+#include <QBuffer>
+
+#include <zlib.h>
+
 extern TrainInterface *g_interface;
 
 Document::Document()
@@ -255,24 +259,43 @@ void Document::setZoom(int zoom)
 
 bool Document::loadCodes(QString fileName, QList<QString> *lines)
 {
-    QFile file(fileName);
+    QBuffer data;
 
-    if (!file.open(IO_ReadOnly))
+    data.open(QBuffer::ReadWrite);
+
+    gzFile zf = gzopen(fileName, "rb");
+
+    if (zf != 0)
+    {
+        char buffer[128];
+        int num_read = 0;
+
+        while ((num_read = gzread(zf, buffer, sizeof(buffer))) > 0)
+        {
+              // fwrite(buffer, 1, num_read, outfile);
+            data.write(buffer, num_read);
+
+        }
+
+        gzclose(zf);
+
+        data.seek(0);
+
+        while (!data.atEnd())
+        {
+            (*lines).append(data.readLine());
+        }
+
+        data.close();
+
+        return true;
+    }
+    else
     {
         debug("Can't open " + fileName, __FILE__, __LINE__);
         return false;
     }
 
-    QTextStream stream(&file);
-
-    while (!stream.atEnd())
-    {
-        (*lines).append(stream.readLine());
-    }
-
-    file.close(); // when your done.
-
-    return true;
 }
 
 void Document::deleteLoko(int id)

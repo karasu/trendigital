@@ -55,3 +55,5 @@ FORMS += src/mainwindow.ui \
 OTHER_FILES += 
 RESOURCES += icons.qrc \
     bitmaps.qrc
+
+unix|win32: LIBS += -lz
