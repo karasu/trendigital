@@ -35,6 +35,7 @@
 #include "dialogs/lokotabbar.h"
 #include "dialogs/lokodock.h"
 #include "dialogs/editlokos.h"
+#include "dialogs/systemsetup.h"
 
 TrainInterface *g_interface = NULL;
 
@@ -200,6 +201,7 @@ void MainWindow::addConnections()
     connect(ui->actionGuardar, SIGNAL(triggered()), this, SLOT(onSave()));
     connect(ui->actionGuardar_com, SIGNAL(triggered()), this, SLOT(onSaveAs()));
     connect(ui->actionConfigurar_impresora, SIGNAL(triggered()), this, SLOT(onPrinterSetup()));
+    connect(ui->actionConfigurar_sistema, SIGNAL(triggered()), this, SLOT(onSystemSetup()));
     // onExit()
 
     // edit menu
@@ -349,6 +351,14 @@ void MainWindow::onExit()
 
 void MainWindow::onPrinterSetup()
 {
+}
+
+void MainWindow::onSystemSetup()
+{
+    SystemSetup *systemSetup = new SystemSetup(this);
+
+    systemSetup->exec();
+
 }
 
 // edit menu --------------------------------------------------------

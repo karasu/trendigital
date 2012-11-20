@@ -27,7 +27,8 @@ SOURCES += src/main.cpp \
     src/view.cpp \
     src/plugindialog.cpp \
     src/traininterface.cpp \
-    src/debug.cpp
+    src/debug.cpp \
+    src/dialogs/systemsetup.cpp
 HEADERS += src/mainwindow.h \
     src/document.h \
     src/dialogs/editlokos.h \
@@ -46,12 +47,14 @@ HEADERS += src/mainwindow.h \
     src/view.h \
     src/plugindialog.h \
     src/traininterface.h \
-    src/debug.h
+    src/debug.h \
+    src/dialogs/systemsetup.h
 FORMS += src/mainwindow.ui \
     src/dialogs/editlokos.ui \
     src/dialogs/lokotabbar.ui \
     src/dialogs/lokodock.ui \
-    src/dialogs/iconview.ui
+    src/dialogs/iconview.ui \
+    src/dialogs/systemsetup.ui
 OTHER_FILES += 
 RESOURCES += icons.qrc \
     bitmaps.qrc

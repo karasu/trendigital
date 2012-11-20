@@ -98,6 +98,7 @@ private slots:
     void onSave(void);
     void onSaveAs(void);
     void onPrinterSetup(void);
+    void onSystemSetup(void);
 
     // edit menu
     void onEditLokos(void);
