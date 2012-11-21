@@ -2,6 +2,7 @@
 #define SYSTEMSETUP_H
 
 #include <QDialog>
+#include <QStringList>
 
 namespace Ui {
 class SystemSetup;
@@ -14,6 +15,10 @@ class SystemSetup : public QDialog
 public:
     explicit SystemSetup(QWidget *parent = 0);
     ~SystemSetup();
+
+    inline void setPluginNames(QStringList l) { m_pluginNames = l; }
+
+    QStringList m_pluginNames;
     
 private:
     Ui::SystemSetup *ui;

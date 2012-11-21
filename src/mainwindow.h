@@ -64,6 +64,7 @@ public:
     QMap<QString,QActionGroup *> m_actionGroups;
 
     QDir m_pluginsDir;
+    QStringList m_pluginNames;
     QStringList m_pluginFileNames;
 
     bool m_programsPaused;

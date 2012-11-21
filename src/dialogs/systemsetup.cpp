@@ -16,7 +16,7 @@ SystemSetup::SystemSetup(QWidget *parent) :
     QStringList transferSpeeds;
     transferSpeeds << "2400 bps" << "4800 bps" << "9600 bps" << "16457 bps" << "16600 bps" << "19200 bps" << "38400 bps" << "57600 bps" << "115200 bps";
 
-    // ui->digitalSystem
+    ui->digitalSystem->insertItems(0, m_pluginNames);
 
     ui->port->insertItems(0, ports);
     ui->transferSpeed->insertItems(0, transferSpeeds);

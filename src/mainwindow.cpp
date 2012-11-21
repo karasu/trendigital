@@ -357,6 +357,8 @@ void MainWindow::onSystemSetup()
 {
     SystemSetup *systemSetup = new SystemSetup(this);
 
+
+    systemSetup->setPluginNames(m_pluginNames);
     systemSetup->exec();
 
 }
@@ -664,6 +666,8 @@ void MainWindow::useInterface(QString interfaceName)
     }
     else
     {
+        m_pluginNames.clear();
+
         foreach (QString fileName, m_pluginsDir.entryList(QDir::Files))
         {
             QPluginLoader loader(m_pluginsDir.absoluteFilePath(fileName));
@@ -672,8 +676,10 @@ void MainWindow::useInterface(QString interfaceName)
             {
                 TrainInterface *pTrain = qobject_cast<TrainInterface *>(plugin);
 
-                if (pTrain && pTrain->name().toLower() == interfaceName.toLower())
+                if (pTrain != NULL)
                 {
+                    m_pluginNames.append(pTrain->name());
+                    if (pTrain->name().toLower() == interfaceName.toLower())
                     debug("Using \"" + interfaceName + "\" interface.", __FILE__, __LINE__);
                     g_interface = pTrain;
                 }
@@ -681,4 +687,6 @@ void MainWindow::useInterface(QString interfaceName)
         }
     }
 }
+
+
 
