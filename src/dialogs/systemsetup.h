@@ -16,7 +16,12 @@ public:
     explicit SystemSetup(QWidget *parent = 0);
     ~SystemSetup();
 
-    inline void setPluginNames(QStringList l) { m_pluginNames = l; }
+    void setPluginNames(QStringList pluginNameList, QString pluginName);
+    QString pluginName(void);
+
+    void setCommPort(QString port);
+
+    void setSpeed(int baudRate);
 
     QStringList m_pluginNames;
     

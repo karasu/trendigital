@@ -357,10 +357,21 @@ void MainWindow::onSystemSetup()
 {
     SystemSetup *systemSetup = new SystemSetup(this);
 
+    if (g_interface != NULL)
+    {
+        systemSetup->setCommPort(g_interface->m_COMMPort);
+        systemSetup->setSpeed(g_interface->m_baudRate);
+        systemSetup->setPluginNames(m_pluginNames, g_interface->name());
+    }
+    else
+    {
+        systemSetup->setPluginNames(m_pluginNames, "");
+    }
 
-    systemSetup->setPluginNames(m_pluginNames);
-    systemSetup->exec();
-
+    if (systemSetup->exec() == QDialog::Accepted)
+    {
+        useInterface(systemSetup->pluginName());
+    }
 }
 
 // edit menu --------------------------------------------------------
@@ -680,8 +691,10 @@ void MainWindow::useInterface(QString interfaceName)
                 {
                     m_pluginNames.append(pTrain->name());
                     if (pTrain->name().toLower() == interfaceName.toLower())
-                    debug("Using \"" + interfaceName + "\" interface.", __FILE__, __LINE__);
-                    g_interface = pTrain;
+                    {
+                        debug("Using \"" + interfaceName + "\" interface.", __FILE__, __LINE__);
+                        g_interface = pTrain;
+                    }
                 }
             }
         }
