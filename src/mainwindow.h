@@ -85,11 +85,15 @@ private:
     bool isCircuitModified(void);
 
     void loadSettings(void);
+    void loadInterfaceSettings(void); // this is loaded AFTER loading interface plugin
     void saveSettings(void);
+    void saveInterfaceSettings(void); // called each time we save all settings or when we press ok in setup interface dialog
 
     bool checkInterface(void);
 
     QActionGroup *m_pActionCommonGroup;
+
+    QString m_settingsInterfaceName; // this is the desired interface, maybe is the one used maybe not.
 
 private slots:
     // file menu

@@ -37,10 +37,12 @@ Document::Document()
 {
     clear();
 
+    /*
     if (getDigitalSystem().isEmpty())
     {
         setDefaultInterfaceValues();
     }
+    */
 
     load74460Codes();
     loadK83K84Codes();
@@ -55,6 +57,7 @@ Document::~Document()
     clear();
 }
 
+/*
 void Document::setDefaultInterfaceValues()
 {
     debug("Setting default values for interface configuration.", __FILE__, __LINE__);
@@ -78,6 +81,7 @@ void Document::setDefaultInterfaceValues()
     // setInterfaceTCPPort("15731");
     // setInterfaceIPProtocol("UDP");
 }
+*/
 
 bool Document::load(const QString &fileName)
 {
@@ -1070,134 +1074,6 @@ void Document::deleteInsertedText(int index)
     }
 }
 
-// ----------------------------------------------------------------------------------------------
-// Interface Setup
-
-QString Document::getDigitalSystem()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/InterfaceModel", "").toString();
-}
-
-QString Document::getInterfaceCommPort()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/InterfaceCommPort", "").toString();
-}
-
-QString Document::getInterfaceIPAddress()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/InterfaceIPAddress", "").toString();
-}
-
-QString Document::getInterfaceTCPPort()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/InterfaceTCPPort", "").toString();
-}
-
-QString Document::getInterfaceIPProtocol()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/InterfaceIPProtocol", "").toString();
-}
-
-QString Document::getInterfaceSpeed()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/InterfaceSpeed", "").toString();
-}
-
-int Document::getReadingSpeed()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/ReadingSpeed", 100).toInt();
-}
-
-bool Document::isTimeInMinutes()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/TimeInMinutes", false).toBool();
-}
-
-bool Document::isUsingIntelliboxInterface()
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    return settings.value("Settings/UsingIntelliboxInterface", false).toBool();
-}
-
-void Document::setDigitalSystem(QString digitalSystem)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/DigitalSystem", digitalSystem);
-}
-
-void Document::setInterfaceCommPort(QString port)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/InterfaceCommPort", port);
-}
-
-void Document::setInterfaceIPAddress(QString IPAddress)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/InterfaceIPAddress", IPAddress);
-}
-
-void Document::setInterfaceTCPPort(QString TCPPort)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/InterfaceTCPPort", TCPPort);
-}
-
-void Document::setInterfaceIPProtocol(QString IPProtocol)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/InterfaceIPProtocol", IPProtocol);
-}
-
-void Document::setInterfaceSpeed(QString speed)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/InterfaceSpeed", speed);
-}
-
-void Document::setReadingSpeed(int speed)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/ReadingSpeed", speed);
-}
-
-void Document::setTimeInMinutes(bool timeInMinutes)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/TimeInMinutes", timeInMinutes);
-}
-
-void Document::setUsingIntelliboxInterface(bool status)
-{
-    QSettings settings("EgaraSYG", "TrenDigital");
-
-    settings.setValue("Settings/UsingIntelliboxInterface", status);
-}
 
 // ------------------------------------------------------------------
 

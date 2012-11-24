@@ -82,6 +82,7 @@ public:
     void deleteInsertedText(int index);
 
     // System setup
+    /*
     QString getDigitalSystem(void);
     QString getInterfaceCommPort(void);
     QString getInterfaceSpeed(void);
@@ -105,6 +106,7 @@ public:
     void setInterfaceIPProtocol(QString protocol);
 
     void setTimeInMinutes(bool timeUnit);
+    */
 
     int getZoom(void);
     void setZoom(int zoom);

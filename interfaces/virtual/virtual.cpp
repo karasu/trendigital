@@ -39,7 +39,24 @@ void Virtual::flush() {}
 
 bool Virtual::isOpen() { return true; }
 
-void Virtual::setDefaultSetup() {}
+void Virtual::setDefaultSetup()
+{     
+    #if defined(Q_OS_WIN)
+    m_COMMPort = "COM1";
+    #else
+    m_COMMPort = "/dev/ttyS0";
+    #endif
+
+    m_baudRate = 2400;
+    m_dataBits = 8;
+    m_stopBits = 2;
+    m_parityCheck = 0;
+    m_handshake = 0;
+
+    m_ip = "";
+    m_ipPort = "";
+    m_ipProtocol = "";
+}
 
 bool Virtual::stop() { return true; }
 

@@ -47,7 +47,7 @@ EditLokos::EditLokos(QWidget *parent) :
 
     QSettings settings;
 
-    bool advanced = settings.value("editLokos/showAdvancedOptions", false).toBool();
+    bool advanced = settings.value("Edit Lokos Dialog/showAdvancedOptions", false).toBool();
 
     if (advanced)
     {
@@ -259,7 +259,7 @@ void EditLokos::fillTreeWidget()
 void EditLokos::saveSettings()
 {
     QSettings settings;
-    settings.setValue("editLokos/showAdvancedOptions", ui->advanced->isChecked());
+    settings.setValue("Edit Lokos Dialog/showAdvancedOptions", ui->advanced->isChecked());
 }
 
 EditLokos::~EditLokos()

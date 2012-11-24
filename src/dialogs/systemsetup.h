@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QStringList>
 
+#include "../traininterface.h"
+
 namespace Ui {
 class SystemSetup;
 }
@@ -24,7 +26,9 @@ public:
     void setSpeed(int baudRate);
 
     QStringList m_pluginNames;
-    
+
+    void saveSettings(TrainInterface *interface);
+
 private:
     Ui::SystemSetup *ui;
 };

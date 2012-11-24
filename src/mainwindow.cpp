@@ -74,6 +74,12 @@ MainWindow::MainWindow(QWidget *parent) :
     loadSettings();
     debug("Program settings loaded.", __FILE__, __LINE__);
 
+    if (m_settingsInterfaceName.length() <= 0)
+    {
+        debug("Can't read settings. I'll try to use virtual interface", __FILE__, __LINE__);
+        m_settingsInterfaceName = "virtual";
+    }
+
     // Check serial key
 
     // Check for updates
@@ -104,7 +110,13 @@ MainWindow::MainWindow(QWidget *parent) :
     showEditToolbars(false);
 
     // Use virtual plugin
-    useInterface("virtual");
+    useInterface(m_settingsInterfaceName);
+
+    if (g_interface == NULL)
+    {
+        // can't load m_settingsInterfaceName... try just loading virtual interface
+        useInterface("virtual");
+    }
 
     // just for testing purposes ************************************************************************************
 
@@ -181,8 +193,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 //    {
         m_pLokoTabBar->close();
 
-        // fixme
-        // saveSettings();
+        saveSettings();
 
         event->accept();
 //    }
@@ -359,6 +370,8 @@ void MainWindow::onSystemSetup()
 
     if (g_interface != NULL)
     {
+        debug(g_interface->m_COMMPort, __FILE__, __LINE__);
+
         systemSetup->setCommPort(g_interface->m_COMMPort);
         systemSetup->setSpeed(g_interface->m_baudRate);
         systemSetup->setPluginNames(m_pluginNames, g_interface->name());
@@ -370,7 +383,17 @@ void MainWindow::onSystemSetup()
 
     if (systemSetup->exec() == QDialog::Accepted)
     {
-        useInterface(systemSetup->pluginName());
+        if (g_interface == NULL || g_interface->name() != systemSetup->pluginName())
+        {
+            // user has selected a new interface, load it!
+            useInterface(systemSetup->pluginName());
+        }
+
+        // save dialog settings (general an plugin ones) to our interface
+        systemSetup->saveSettings(g_interface);
+
+        // save our new plugin settings to disk
+        saveInterfaceSettings();
     }
 }
 
@@ -551,25 +574,215 @@ void MainWindow::onAboutInterfaces()
 
 void MainWindow::loadSettings()
 {
-    QSettings settings;
-    settings.beginGroup("MainWindow");
+    QSettings settings("EgaraSYG", "TrenDigital");
 
+    settings.beginGroup("MainWindow");
     resize(settings.value("size", QSize(640, 480)).toSize());
     move(settings.value("position", QPoint(200, 200)).toPoint());
+    settings.endGroup();  
 
+    settings.beginGroup("Interface");
+    // at this point we haven't loaded the interface, so we only retrieve the interface name we want to load
+    m_settingsInterfaceName = settings.value("name").toString();
     settings.endGroup();
+}
+
+void MainWindow::loadInterfaceSettings()
+{
+    // this is loaded AFTER loading interface plugin
+
+    if (g_interface != NULL)
+    {
+        debug("Loading interface settings", __FILE__, __LINE__);
+
+        QSettings settings("EgaraSYG", "TrenDigital");
+
+        settings.beginGroup(g_interface->name());
+        settings.value("name", g_interface->name());
+        settings.value("baudRate", g_interface->m_baudRate);
+        settings.value("COMMPort", g_interface->m_COMMPort);
+        settings.value("dataBits", g_interface->m_dataBits);
+        settings.value("handshake", g_interface->m_handshake);
+        settings.value("parityCheck", g_interface->m_parityCheck);
+        settings.value("stopBits", g_interface->m_stopBits);
+        settings.value("ip", g_interface->m_ip);
+        settings.value("ipProtocol", g_interface->m_ipProtocol);
+        settings.value("ipPort", g_interface->m_ipPort);
+        settings.endGroup();
+    }
 }
 
 void MainWindow::saveSettings()
 { 
-    QSettings settings;
-    settings.beginGroup("MainWindow");
+    QSettings settings("EgaraSYG", "TrenDigital");
 
+    settings.beginGroup("MainWindow");
     settings.setValue("size", size());
     settings.setValue("position", pos());
-
     settings.endGroup();
+
+    saveInterfaceSettings();
 }
+
+void MainWindow::saveInterfaceSettings()
+{
+    if (g_interface != NULL)
+    {
+        debug("Saving interface settings", __FILE__, __LINE__);
+
+        QSettings settings("EgaraSYG", "TrenDigital");
+
+        settings.beginGroup("Interface");
+        settings.setValue("name", g_interface->name());
+        settings.endGroup();
+
+        settings.beginGroup(g_interface->name());
+        settings.setValue("name", g_interface->name());
+        settings.setValue("baudRate", g_interface->m_baudRate);
+        settings.setValue("COMMPort", g_interface->m_COMMPort);
+        settings.setValue("dataBits", g_interface->m_dataBits);
+        settings.setValue("handshake", g_interface->m_handshake);
+        settings.setValue("parityCheck", g_interface->m_parityCheck);
+        settings.setValue("stopBits", g_interface->m_stopBits);
+        settings.setValue("ip", g_interface->m_ip);
+        settings.setValue("ipProtocol", g_interface->m_ipProtocol);
+        settings.setValue("ipPort", g_interface->m_ipPort);
+        settings.endGroup();
+    }
+}
+
+
+/*
+// ----------------------------------------------------------------------------------------------
+// Interface Setup
+
+QString Document::getDigitalSystem()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/InterfaceModel", "").toString();
+}
+
+QString Document::getInterfaceCommPort()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/InterfaceCommPort", "").toString();
+}
+
+QString Document::getInterfaceIPAddress()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/InterfaceIPAddress", "").toString();
+}
+
+QString Document::getInterfaceTCPPort()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/InterfaceTCPPort", "").toString();
+}
+
+QString Document::getInterfaceIPProtocol()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/InterfaceIPProtocol", "").toString();
+}
+
+QString Document::getInterfaceSpeed()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/InterfaceSpeed", "").toString();
+}
+
+int Document::getReadingSpeed()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/ReadingSpeed", 100).toInt();
+}
+
+bool Document::isTimeInMinutes()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/TimeInMinutes", false).toBool();
+}
+
+bool Document::isUsingIntelliboxInterface()
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    return settings.value("Settings/UsingIntelliboxInterface", false).toBool();
+}
+
+void Document::setDigitalSystem(QString digitalSystem)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/DigitalSystem", digitalSystem);
+}
+
+void Document::setInterfaceCommPort(QString port)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/InterfaceCommPort", port);
+}
+
+void Document::setInterfaceIPAddress(QString IPAddress)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/InterfaceIPAddress", IPAddress);
+}
+
+void Document::setInterfaceTCPPort(QString TCPPort)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/InterfaceTCPPort", TCPPort);
+}
+
+void Document::setInterfaceIPProtocol(QString IPProtocol)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/InterfaceIPProtocol", IPProtocol);
+}
+
+void Document::setInterfaceSpeed(QString speed)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/InterfaceSpeed", speed);
+}
+
+void Document::setReadingSpeed(int speed)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/ReadingSpeed", speed);
+}
+
+void Document::setTimeInMinutes(bool timeInMinutes)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/TimeInMinutes", timeInMinutes);
+}
+
+void Document::setUsingIntelliboxInterface(bool status)
+{
+    QSettings settings("EgaraSYG", "TrenDigital");
+
+    settings.setValue("Settings/UsingIntelliboxInterface", status);
+}
+*/
+
 
 QString MainWindow::getLokoImageFileName(int index)
 {
@@ -668,6 +881,7 @@ void MainWindow::useInterface(QString interfaceName)
 {
     if (m_pluginFileNames.length() <= 0)
     {
+        // maybe we haven't load our plugins yet. Try to load them
         loadPlugins();
     }
 
@@ -678,6 +892,8 @@ void MainWindow::useInterface(QString interfaceName)
     else
     {
         m_pluginNames.clear();
+
+        g_interface = NULL;
 
         foreach (QString fileName, m_pluginsDir.entryList(QDir::Files))
         {
@@ -694,12 +910,15 @@ void MainWindow::useInterface(QString interfaceName)
                     {
                         debug("Using \"" + interfaceName + "\" interface.", __FILE__, __LINE__);
                         g_interface = pTrain;
+
+                        // first, load default setup
+                        g_interface->setDefaultSetup();
+
+                        // now check for user setup in our config file
+                        loadInterfaceSettings();
                     }
                 }
             }
         }
     }
 }
-
-
-

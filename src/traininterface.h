@@ -110,7 +110,6 @@ public:
         }
     }
 
-
     // Properties
 
     QMutex m_mutex;
@@ -122,8 +121,8 @@ public:
     int m_handshake;
 
     QString m_ip;
-    QString m_TCPPort;
-    QString m_protocol;
+    QString m_ipPort;
+    QString m_ipProtocol;
 };
 
 

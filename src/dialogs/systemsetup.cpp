@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QStringList>
+#include <QDebug>
 
 SystemSetup::SystemSetup(QWidget *parent) :
     QDialog(parent),
@@ -11,13 +12,18 @@ SystemSetup::SystemSetup(QWidget *parent) :
     ui->setupUi(this);
 
     QStringList ports;
+
+#if defined(Q_OS_WIN)
     ports << "COM1" << "COM2" << "COM3" << "COM4" << "COM5" << "COM6" << "COM7" << "COM8" << "COM9" << "COM10";
+#else
+    ports << "/dev/ttyS0" << "/dev/ttyS1" << "/dev/ttyS2" << "/dev/ttyS3" << "/dev/ttyS4" << "/dev/ttyS5" << "/dev/ttyS6" << "/dev/ttyS7" << "/dev/ttyS8" << "/dev/ttyS9";
+#endif
 
     QStringList transferSpeeds;
     transferSpeeds << "2400 bps" << "4800 bps" << "9600 bps" << "16457 bps" << "16600 bps" << "19200 bps" << "38400 bps" << "57600 bps" << "115200 bps";
 
-    ui->port->insertItems(0, ports);
-    ui->transferSpeed->insertItems(0, transferSpeeds);
+    ui->COMMPort->insertItems(0, ports);
+    ui->baudRate->insertItems(0, transferSpeeds);
 
     ui->dial->setMinimum(0);
     ui->dial->setMaximum(2000);
@@ -41,17 +47,34 @@ void SystemSetup::setPluginNames(QStringList pluginNameList, QString pluginName)
 
 void SystemSetup::setCommPort(QString port)
 {
-    int index = ui->port->findText(port);
-    ui->port->setCurrentIndex(index);
+    int index = ui->COMMPort->findText(port);
+    ui->COMMPort->setCurrentIndex(index);
 }
 
 void SystemSetup::setSpeed(int baudRate)
 {
-    int index = ui->transferSpeed->findText(QString::number(baudRate), Qt::MatchContains);
-    ui->transferSpeed->setCurrentIndex(index);
+    int index = ui->baudRate->findText(QString::number(baudRate), Qt::MatchContains);
+    ui->baudRate->setCurrentIndex(index);
 }
 
 SystemSetup::~SystemSetup()
 {
     delete ui;
+}
+
+void SystemSetup::saveSettings(TrainInterface *interface)
+{
+    Q_ASSERT(interface->name == ui->digitalSystem->currentText());
+
+    // save interface settings
+
+    interface->m_baudRate = ui->baudRate->currentText().remove(" bps").toInt();
+    interface->m_COMMPort = ui->COMMPort->currentText();
+    // interface->m_dataBits =
+    // interface->m_handshake =
+    // interface->m_parityCheck =
+    // interface->m_stopBits =
+    interface->m_ip = ui->ip->text();
+    // interface->m_ipProtocol =
+    // interface->m_ipPort =
 }
