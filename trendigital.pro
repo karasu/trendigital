@@ -28,7 +28,8 @@ SOURCES += src/main.cpp \
     src/plugindialog.cpp \
     src/traininterface.cpp \
     src/debug.cpp \
-    src/dialogs/systemsetup.cpp
+    src/dialogs/systemsetup.cpp \
+    src/scanfeedbackmodules.cpp
 HEADERS += src/mainwindow.h \
     src/document.h \
     src/dialogs/editlokos.h \
@@ -48,7 +49,8 @@ HEADERS += src/mainwindow.h \
     src/plugindialog.h \
     src/traininterface.h \
     src/debug.h \
-    src/dialogs/systemsetup.h
+    src/dialogs/systemsetup.h \
+    src/scanfeedbackmodules.h
 FORMS += src/mainwindow.ui \
     src/dialogs/editlokos.ui \
     src/dialogs/lokotabbar.ui \

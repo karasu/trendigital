@@ -35,6 +35,7 @@ class LokoTabBar;
 class LokoDock;
 class Document;
 class View;
+class ScanFeedbackModules;
 
 namespace Ui {
     class MainWindow;
@@ -99,6 +100,9 @@ private:
     QActionGroup *m_pActionCommonGroup;
 
     QString m_settingsInterfaceName; // this is the desired interface, maybe is the one used maybe not.
+
+    ScanFeedbackModules *m_pScanFeedbackModulesWorker;
+    QThread *m_pScanFeedbackModulesThread;
 
 private slots:
     // file menu

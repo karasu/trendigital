@@ -4,11 +4,11 @@
 #include <QDialog>
 #include <QStringList>
 
-#include "../traininterface.h"
-
 namespace Ui {
 class SystemSetup;
 }
+
+class TrainInterface;
 
 class SystemSetup : public QDialog
 {

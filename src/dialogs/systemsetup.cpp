@@ -5,6 +5,8 @@
 #include <QStringList>
 #include <QDebug>
 
+#include "../traininterface.h"
+
 SystemSetup::SystemSetup(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::SystemSetup)
@@ -68,13 +70,13 @@ void SystemSetup::saveSettings(TrainInterface *interface)
 
     // save interface settings
 
-    interface->m_baudRate = ui->baudRate->currentText().remove(" bps").toInt();
-    interface->m_COMMPort = ui->COMMPort->currentText();
+    interface->setBaudRate(ui->baudRate->currentText().remove(" bps").toInt());
+    interface->setCommPort(ui->COMMPort->currentText());
     // interface->m_dataBits =
     // interface->m_handshake =
     // interface->m_parityCheck =
     // interface->m_stopBits =
-    interface->m_ip = ui->ip->text();
+    interface->setIp(ui->ip->text());
     // interface->m_ipProtocol =
     // interface->m_ipPort =
 }
