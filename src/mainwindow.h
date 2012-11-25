@@ -29,6 +29,7 @@
 #include <QImage>
 #include <QPluginLoader>
 #include <QActionGroup>
+#include <QThread>
 
 class LokoTabBar;
 class LokoDock;
@@ -88,6 +89,10 @@ private:
     void loadInterfaceSettings(void); // this is loaded AFTER loading interface plugin
     void saveSettings(void);
     void saveInterfaceSettings(void); // called each time we save all settings or when we press ok in setup interface dialog
+
+    void createTestLokos(void);
+
+    void startReadingFeedbackModules(void);
 
     bool checkInterface(void);
 

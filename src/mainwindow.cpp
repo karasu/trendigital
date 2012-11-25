@@ -118,6 +118,19 @@ MainWindow::MainWindow(QWidget *parent) :
         useInterface("virtual");
     }
 
+    debug("Starting feedback modules thread", __FILE__, __LINE__);
+    startReadingFeedbackModules();
+
+    // create some testing lokos
+    createTestLokos();
+    debug("Test lokos created.", __FILE__, __LINE__);
+
+    debug("MainWindow::MainWindow() finished", __FILE__, __LINE__);
+
+}
+
+void MainWindow::createTestLokos()
+{
     // just for testing purposes ************************************************************************************
 
     Loko *pLoko;
@@ -161,11 +174,6 @@ MainWindow::MainWindow(QWidget *parent) :
     pLoko->m_imageFileName = QString("/home/karasu/TrenDigital/images/lokos/Roco/diesel/63970.png");
     pLoko->m_id = 4;
     m_pDoc->m_lokos.insert(4, pLoko);
-
-    debug("Test lokos created.", __FILE__, __LINE__);
-
-    debug("MainWindow::MainWindow() finished", __FILE__, __LINE__);
-
 }
 
 MainWindow::~MainWindow()
@@ -945,3 +953,167 @@ void MainWindow::useInterface(QString interfaceName)
         }
     }
 }
+
+// Listening thread
+
+void MainWindow::startReadingFeedbackModules()
+{
+    /*
+     * http://mayaposch.wordpress.com/2011/11/01/how-to-really-truly-use-qthreads-the-full-explanation/
+    */
+    /*
+    QThread* thread = new QThread;
+    Worker* worker = new Worker();
+    worker->moveToThread(thread);
+    connect(worker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+    connect(thread, SIGNAL(started()), worker, SLOT(process()));
+    connect(worker, SIGNAL(finished()), thread, SLOT(quit()));
+    connect(worker, SIGNAL(finished()), worker, SLOT(deleteLater()));
+    connect(thread, SIGNAL(finished()), thread, SLOT(deleteLater()));
+    thread->start();
+    */
+}
+
+/*
+UINT ScanFBModulesCS2Thread(LPVOID pParam)
+{
+    ThreadInfo *pThreadInfo = (ThreadInfo *)pParam;
+
+    BOOL *pbIsFBModuleActive = pThreadInfo->pbIsFBModuleActive;
+
+    if (pbIsFBModuleActive == NULL)
+    {
+        CLog::Log(LOG_ERROR, "Invalid parameter to the cs2 listener thread", __FILE__, __LINE__);
+
+        return 1; // error
+    }
+
+    HWND hWnd = pThreadInfo->hWnd;
+
+    if (!::IsWindow(hWnd))
+    {
+        CLog::Log(LOG_ERROR, "Invalid parameter to the cs2 listener thread (hWnd is not a real window!)", __FILE__, __LINE__);
+
+        return 1; // error
+    }
+
+    if (!g_interface.IsOpen())
+    {
+        CLog::Log(LOG_ERROR, "The interface comunications are not yet established. Can't read feedback modules.", __FILE__, __LINE__);
+
+        return 1; // error
+    }
+
+    g_interface.SetMutex(pThreadInfo->hMutex);
+
+    pThreadInfo->bRunning = TRUE;
+
+    CLog::Log(LOG_INFO, "Special CS2 listener thread for reading feedback modules started.", __FILE__, __LINE__);
+
+    while (!pThreadInfo->bStop)
+    {
+        if (!pThreadInfo->bPause)
+        {
+            // La CS2 necessita separar les funcions de pregunta/resposta de l'estat dels contactes
+            // Així la funció ReadFeedBackModule només pregunta (pel modul que toca)
+            // Es la funció ReadFeedBackModules que obté l'estat
+
+            if (g_interface.ReadFeedBackModules(pbIsFBModuleActive))
+            {
+                ::PostMessage(hWnd, UM_FBMODULE_CHANGED, 0, 0);
+            }
+        }
+    }
+
+    pThreadInfo->bRunning = FALSE;
+
+    CLog::Log(LOG_INFO, "CS2 Listener thread stopped.", __FILE__, __LINE__);
+
+    return 0; // all ok.
+}
+
+UINT ScanFBModulesThread(LPVOID pParam)
+{
+    ThreadInfo *pThreadInfo = (ThreadInfo *)pParam;
+
+    BOOL *pbIsFBModuleActive = pThreadInfo->pbIsFBModuleActive;
+
+    if (pbIsFBModuleActive == NULL)
+    {
+        CLog::Log(LOG_ERROR, "Invalid parameter to the listener thread", __FILE__, __LINE__);
+
+        return 1; // error
+    }
+
+    HWND hWnd = pThreadInfo->hWnd;
+
+    if (!::IsWindow(hWnd))
+    {
+        CLog::Log(LOG_ERROR, "Invalid parameter to the listener thread (hWnd is not a real window!)", __FILE__, __LINE__);
+
+        return 1; // error
+    }
+
+    BOOL bModuleStatus[S88_POSITIONS];
+
+    memset(bModuleStatus, 0, S88_POSITIONS);
+
+    int iModuleSize = S88_POSITIONS * sizeof(BOOL);
+
+    int iValues[MAX_S88];
+
+    for (int i=0; i<MAX_S88; i++)
+    {
+        iValues[i] = i * S88_POSITIONS;
+    }
+
+    if (!g_interface.IsOpen())
+    {
+        CLog::Log(LOG_ERROR, "The interface comunications are not yet established. Can't read feedback modules.", __FILE__, __LINE__);
+
+        return 1; // error
+    }
+
+    g_interface.SetMutex(pThreadInfo->hMutex);
+
+    pThreadInfo->bRunning = TRUE;
+
+    i = 0;
+
+    CLog::Log(LOG_INFO, "Listener thread for reading feedback modules started.", __FILE__, __LINE__);
+
+    while (!pThreadInfo->bStop)
+    {
+        for (int i=0; i<MAX_S88; i++)
+        {
+            if (!pThreadInfo->bPause)
+            {
+                if (g_interface.ReadFeedBackModule(i+1, bModuleStatus))
+                {
+                    BOOL *pAddr = pbIsFBModuleActive + 1 + iValues[i];
+
+                    if (memcmp(pAddr, bModuleStatus, iModuleSize) != 0)
+                    {
+                        memcpy(pAddr, bModuleStatus, iModuleSize);
+
+                        ::PostMessage(hWnd, UM_FBMODULE_CHANGED, 0, 0);
+                    }
+                }
+
+                Sleep(pThreadInfo->iReadingSpeed);
+            }
+
+            if (pThreadInfo->bStop)
+            {
+                break;
+            }
+        }
+    }
+
+    pThreadInfo->bRunning = FALSE;
+
+    CLog::Log(LOG_INFO, "Listener thread stopped.", __FILE__, __LINE__);
+
+    return 0; // all ok.
+}
+*/
