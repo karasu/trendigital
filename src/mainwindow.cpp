@@ -370,10 +370,10 @@ void MainWindow::onSystemSetup()
 
     if (g_interface != NULL)
     {
-        debug(g_interface->m_COMMPort, __FILE__, __LINE__);
+        debug(g_interface->commPort(), __FILE__, __LINE__);
 
-        systemSetup->setCommPort(g_interface->m_COMMPort);
-        systemSetup->setSpeed(g_interface->m_baudRate);
+        systemSetup->setCommPort(g_interface->commPort());
+        systemSetup->setSpeed(g_interface->baudRate());
         systemSetup->setPluginNames(m_pluginNames, g_interface->name());
     }
     else
@@ -597,18 +597,32 @@ void MainWindow::loadInterfaceSettings()
 
         QSettings settings("EgaraSYG", "TrenDigital");
 
-        settings.beginGroup(g_interface->name());
-        settings.value("name", g_interface->name());
-        settings.value("baudRate", g_interface->m_baudRate);
-        settings.value("COMMPort", g_interface->m_COMMPort);
-        settings.value("dataBits", g_interface->m_dataBits);
-        settings.value("handshake", g_interface->m_handshake);
-        settings.value("parityCheck", g_interface->m_parityCheck);
-        settings.value("stopBits", g_interface->m_stopBits);
-        settings.value("ip", g_interface->m_ip);
-        settings.value("ipProtocol", g_interface->m_ipProtocol);
-        settings.value("ipPort", g_interface->m_ipPort);
-        settings.endGroup();
+        // Is our interface stored? If not, plugin defaults will be used
+
+        QStringList groups = settings.childGroups();
+
+        if (groups.indexOf(g_interface->name()) >= 0) // found
+        {
+            settings.beginGroup(g_interface->name());
+            g_interface->setCommPort(settings.value("COMMPort").toString());
+            g_interface->setBaudRate(settings.value("baudRate").toInt());
+
+            /*
+            settings.value("dataBits", g_interface->m_dataBits);
+            settings.value("handshake", g_interface->m_handshake);
+            settings.value("parityCheck", g_interface->m_parityCheck);
+            settings.value("stopBits", g_interface->m_stopBits);
+            */
+
+            g_interface->setIp(settings.value("ip").toString());
+
+            /*
+            settings.value("ipProtocol", g_interface->m_ipProtocol);
+            settings.value("ipPort", g_interface->m_ipPort);
+            */
+
+            settings.endGroup();
+        }
     }
 }
 
@@ -632,21 +646,30 @@ void MainWindow::saveInterfaceSettings()
 
         QSettings settings("EgaraSYG", "TrenDigital");
 
+        // store default interface name
         settings.beginGroup("Interface");
         settings.setValue("name", g_interface->name());
         settings.endGroup();
 
+        // store our interface settings
         settings.beginGroup(g_interface->name());
-        settings.setValue("name", g_interface->name());
-        settings.setValue("baudRate", g_interface->m_baudRate);
-        settings.setValue("COMMPort", g_interface->m_COMMPort);
+        settings.setValue("COMMPort", g_interface->commPort());
+        settings.setValue("baudRate", g_interface->baudRate());
+
+        /*
         settings.setValue("dataBits", g_interface->m_dataBits);
         settings.setValue("handshake", g_interface->m_handshake);
         settings.setValue("parityCheck", g_interface->m_parityCheck);
         settings.setValue("stopBits", g_interface->m_stopBits);
-        settings.setValue("ip", g_interface->m_ip);
+        */
+
+        settings.setValue("ip", g_interface->ip());
+
+        /*
         settings.setValue("ipProtocol", g_interface->m_ipProtocol);
         settings.setValue("ipPort", g_interface->m_ipPort);
+        */
+
         settings.endGroup();
     }
 }

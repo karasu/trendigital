@@ -42,9 +42,9 @@ bool Virtual::isOpen() { return true; }
 void Virtual::setDefaultSetup()
 {     
     #if defined(Q_OS_WIN)
-    m_COMMPort = "COM1";
+    m_commPort = "COM1";
     #else
-    m_COMMPort = "/dev/ttyS0";
+    m_commPort = "/dev/ttyS0";
     #endif
 
     m_baudRate = 2400;
@@ -57,6 +57,18 @@ void Virtual::setDefaultSetup()
     m_ipPort = "";
     m_ipProtocol = "";
 }
+
+QString Virtual::commPort() { return m_commPort; }
+
+int Virtual::baudRate() { return m_baudRate; }
+
+QString Virtual::ip() { return m_ip; }
+
+void Virtual::setCommPort(QString commPort) { m_commPort = commPort; }
+
+void Virtual::setBaudRate(int baudRate) { m_baudRate = baudRate; }
+
+void Virtual::setIp(QString ip) { m_ip = ip; }
 
 bool Virtual::stop() { return true; }
 

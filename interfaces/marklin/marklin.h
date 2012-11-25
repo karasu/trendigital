@@ -81,6 +81,16 @@ public:
 
     int getMFXLokosInfo(int *id, int *address, QString *name);
     int getMFXSID(void);
+
+    // public properties
+    QString commPort();
+    int baudRate();
+    QString ip();
+
+    void setCommPort(QString commPort);
+    void setBaudRate(int baudRate);
+    void setIp(QString ip);
+
 };
 
 #endif // MARKLIN_H

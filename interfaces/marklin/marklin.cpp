@@ -25,7 +25,7 @@ QString Marklin::name()
 
 QString Marklin::version()
 {
-    return QString("0.0.1");
+    return QString("0.0.2");
 }
 
 bool Marklin::read(int *value)
@@ -95,9 +95,9 @@ bool Marklin::isOpen()
 void Marklin::setDefaultSetup()
 {
     #if defined(Q_OS_WIN)
-    m_COMMPort = "COM1";
+    setCommPort("COM1");
     #else
-    m_COMMPort = "/dev/ttyS0";
+    setCommPort("/dev/ttyS0");
     #endif
 
     m_baudRate = 2400;
@@ -110,13 +110,8 @@ void Marklin::setDefaultSetup()
     m_ipPort = "";
     m_ipProtocol = "";
 
-    #if defined(Q_OS_WIN)
-        m_serial.setPortName("COM1");
-    #else
-        m_serial.setPortName("/dev/ttyS0");
-    #endif
+    setBaudRate(BAUD2400);
 
-    m_serial.setBaudRate(BAUD2400);
     m_serial.setDataBits(DATA_8);
     m_serial.setStopBits(STOP_2);
     m_serial.setParity(PAR_NONE);
@@ -124,6 +119,44 @@ void Marklin::setDefaultSetup()
     m_serial.setQueryMode(QextSerialPort::Polling);
     m_serial.setTimeout(200); // set timeout to 200 ms
 }
+
+
+QString Marklin::commPort()
+{
+    return m_commPort;
+}
+
+int Marklin::baudRate()
+{
+    return m_baudRate;
+}
+
+QString Marklin::ip()
+{
+    return m_ip;
+}
+
+void Marklin::setCommPort(QString commPort)
+{
+    m_commPort = commPort;
+
+    #if defined(Q_OS_WIN)
+    m_serial.setPortName(m_commPort);
+    #else
+    m_serial.setPortName(m_commPort);
+    #endif
+}
+
+void Marklin::setBaudRate(int baudRate)
+{
+    m_baudRate = baudRate;
+
+    // Sure this conversion is ok?
+    m_serial.setBaudRate((BaudRateType)m_baudRate);
+}
+
+void Marklin::setIp(QString ip) { m_ip = ip; }
+
 
 bool Marklin::stop()
 {
@@ -137,7 +170,7 @@ bool Marklin::go()
 
 bool Marklin::setLokoInReverse(int address, bool auxFunc, bool direction)
 {
-    direction = true; // not used in this interface
+    Q_UNUSED(direction); // not used in this interface
 
     bool ok = true;
 

@@ -110,10 +110,19 @@ public:
         }
     }
 
-    // Properties
+    // Public properties
 
+    virtual QString commPort() = 0;
+    virtual int baudRate() = 0;
+    virtual QString ip() = 0;
+
+    virtual void setCommPort(QString commPort) = 0;
+    virtual void setBaudRate(int baudRate) = 0;
+    virtual void setIp(QString ip) = 0;
+
+protected:
     QMutex m_mutex;
-    QString m_COMMPort;
+    QString m_commPort;
     int m_baudRate;
     int m_stopBits;
     int m_dataBits;
