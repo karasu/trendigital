@@ -31,6 +31,8 @@
 #include <QActionGroup>
 #include <QThread>
 
+#include "general.h"
+
 class LokoTabBar;
 class LokoDock;
 class Document;
@@ -104,6 +106,9 @@ private:
     ScanFeedbackModules *m_pScanFeedbackModulesWorker;
     QThread *m_pScanFeedbackModulesThread;
 
+    bool m_isFBModuleActive[MAX_FB_MODULE_NUMBER];
+
+
 private slots:
     // file menu
     void onExit(void);
@@ -133,6 +138,9 @@ private slots:
     void onAboutInterfaces(void);
 
     void onInsertElement(QAction *pAction);
+
+    void fbModulesChanged(bool *fbModulesStatus);
+
 };
 
 #endif // MAINWINDOW_H

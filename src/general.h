@@ -24,6 +24,9 @@
 #define NUM_FUNCTIONS 16
 #define NUM_ADITIONAL_FUNCTIONS 8
 
+#define MAX_FB_MODULE_NUMBER 512
+#define MAX_FBMODULES		99
+
 // document
 #define MAGIC_STRING QString("Fitxer de dades del Tren Digital")
 #define MAGIC_NUMBER (qint32)0x00110011

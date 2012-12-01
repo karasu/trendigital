@@ -1,9 +1,14 @@
 #include "scanfeedbackmodules.h"
+#include "traininterface.h"
 
-ScanFeedbackModules::ScanFeedbackModules(QObject *parent) :
+ScanFeedbackModules::ScanFeedbackModules(QObject *parent, TrainInterface *interface) :
     QObject(parent)
 {
     // you could copy data from constructor arguments to internal variables here.
+
+    m_interface = interface;
+
+    memset(m_fbModulesStatus, 0, MAX_FB_MODULE_NUMBER * sizeof(bool));
 }
 
 ScanFeedbackModules::~ScanFeedbackModules()
@@ -15,12 +20,23 @@ void ScanFeedbackModules::start()
 {
     // allocate resources using new here
 
+    m_paused = false;
+
+    if (m_interface == NULL)
+    {
+        return;
+    }
+
+    // m_fbModulesStatus
+
+    emit fbModulesChanged(m_fbModulesStatus);
+
     // start processing
 }
 
 void ScanFeedbackModules::pause()
 {
-
+    m_paused = !m_paused;
 }
 
 /*

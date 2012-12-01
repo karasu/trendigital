@@ -960,22 +960,38 @@ void MainWindow::useInterface(QString interfaceName)
 
 void MainWindow::startReadingFeedbackModules()
 {
-    m_pScanFeedbackModulesThread = new QThread;
-    m_pScanFeedbackModulesWorker = new ScanFeedbackModules();
-
-    if (m_pScanFeedbackModulesThread != NULL &&
-        m_pScanFeedbackModulesWorker != NULL)
+    if (g_interface != NULL)
     {
-        m_pScanFeedbackModulesWorker->moveToThread(m_pScanFeedbackModulesThread);
+        m_pScanFeedbackModulesThread = new QThread;
+        m_pScanFeedbackModulesWorker = new ScanFeedbackModules(0, g_interface);
 
-        // connect(m_pScanFeedbackModulesWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
+        if (m_pScanFeedbackModulesThread != NULL &&
+            m_pScanFeedbackModulesWorker != NULL)
+        {
+            m_pScanFeedbackModulesWorker->moveToThread(m_pScanFeedbackModulesThread);
 
-        connect(m_pScanFeedbackModulesThread, SIGNAL(started()), m_pScanFeedbackModulesWorker, SLOT(process()));
-        connect(m_pScanFeedbackModulesWorker, SIGNAL(finished()), m_pScanFeedbackModulesThread, SLOT(quit()));
+            // connect(m_pScanFeedbackModulesWorker, SIGNAL(error(QString)), this, SLOT(errorString(QString)));
 
-        connect(m_pScanFeedbackModulesWorker, SIGNAL(finished()), m_pScanFeedbackModulesWorker, SLOT(deleteLater()));
-        connect(m_pScanFeedbackModulesThread, SIGNAL(finished()), m_pScanFeedbackModulesThread, SLOT(deleteLater()));
+            connect(m_pScanFeedbackModulesThread, SIGNAL(started()), m_pScanFeedbackModulesWorker, SLOT(start()));
+            connect(m_pScanFeedbackModulesWorker, SIGNAL(finished()), m_pScanFeedbackModulesThread, SLOT(quit()));
 
-        m_pScanFeedbackModulesThread->start();
+            connect(m_pScanFeedbackModulesWorker, SIGNAL(finished()), m_pScanFeedbackModulesWorker, SLOT(deleteLater()));
+            connect(m_pScanFeedbackModulesThread, SIGNAL(finished()), m_pScanFeedbackModulesThread, SLOT(deleteLater()));
+
+            connect(m_pScanFeedbackModulesWorker, SIGNAL(fbModulesChanged(bool *)), this, SLOT(fbModulesChanged(bool *)));
+
+            m_pScanFeedbackModulesThread->start();
+        }
     }
+    else
+    {
+        debug("Can't start feedback modules listening thread. Interface not loaded yet!", __FILE__, __LINE__);
+    }
+}
+
+void MainWindow::fbModulesChanged(bool *fbModulesStatus)
+{
+    // update our gui
+
+    debug("GUI must be updated!", __FILE__, __LINE__);
 }

@@ -66,7 +66,7 @@ SystemSetup::~SystemSetup()
 
 void SystemSetup::saveSettings(TrainInterface *interface)
 {
-    Q_ASSERT(interface->name == ui->digitalSystem->currentText());
+    Q_ASSERT(interface->name() == ui->digitalSystem->currentText());
 
     // save interface settings
 
