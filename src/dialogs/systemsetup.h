@@ -29,6 +29,9 @@ public:
 
     void saveSettings(TrainInterface *interface);
 
+    int readingDelay(void);
+    void setReadingDelay(int value = 2000);
+
 private:
     Ui::SystemSetup *ui;
 };

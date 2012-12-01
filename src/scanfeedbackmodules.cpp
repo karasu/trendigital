@@ -1,12 +1,18 @@
 #include "scanfeedbackmodules.h"
 #include "traininterface.h"
 
-ScanFeedbackModules::ScanFeedbackModules(QObject *parent, TrainInterface *interface) :
+ScanFeedbackModules::ScanFeedbackModules(QObject *parent, TrainInterface *interface, int readingDelay) :
     QObject(parent)
 {
     // you could copy data from constructor arguments to internal variables here.
 
     m_interface = interface;
+
+    m_stop = false;
+
+    m_paused = false;
+
+    m_readingDelay = readingDelay;
 
     memset(m_fbModulesStatus, 0, MAX_FB_MODULE_NUMBER * sizeof(bool));
 }
@@ -20,23 +26,84 @@ void ScanFeedbackModules::start()
 {
     // allocate resources using new here
 
-    m_paused = false;
-
     if (m_interface == NULL)
     {
+        emit finished();
         return;
     }
 
-    // m_fbModulesStatus
+    bool moduleStatus[S88_POSITIONS];
 
-    emit fbModulesChanged(m_fbModulesStatus);
+    memset(moduleStatus, 0, S88_POSITIONS * sizeof(bool));
 
-    // start processing
+    int moduleSize = S88_POSITIONS * sizeof(bool);
+
+    int values[MAX_S88];
+
+    for (int i=0; i<MAX_S88; i++)
+    {
+        values[i] = i * S88_POSITIONS;
+    }
+
+    while (!m_stop)
+    {
+        for (int i=0; i<MAX_S88; i++)
+        {
+            if (!m_paused)
+            {
+                qDebug() << "Polling interface with a delay of " + QString::number(m_readingDelay) + "ms...";
+
+                if (m_interface->readFeedBackModule(i + 1, moduleStatus))
+                {
+                    bool *pAddr = m_fbModulesStatus + 1 + values[i];
+
+                    if (memcmp(pAddr, moduleStatus, moduleSize) != 0)
+                    {
+                        memcpy(pAddr, moduleStatus, moduleSize);
+
+                        emit fbModulesChanged(m_fbModulesStatus);
+                    }
+                }
+
+                sleep(m_readingDelay);
+            }
+
+            if (m_stop)
+            {
+                break;
+            }
+        }
+    }
+
+    emit finished();
+}
+
+void ScanFeedbackModules::sleep(int ms)
+{
+    if (ms > 0)
+    {
+#ifdef Q_OS_WIN
+        Sleep(uint(ms));
+#else
+        struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
+        nanosleep(&ts, NULL);
+#endif
+    }
+}
+
+void ScanFeedbackModules::setReadingDelay(int readingDelay)
+{
+    m_readingDelay = readingDelay;
 }
 
 void ScanFeedbackModules::pause()
 {
     m_paused = !m_paused;
+}
+
+void ScanFeedbackModules::stop()
+{
+    m_stop = true;
 }
 
 /*

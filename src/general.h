@@ -27,6 +27,11 @@
 #define MAX_FB_MODULE_NUMBER 512
 #define MAX_FBMODULES		99
 
+#define MAX_S88 6 			// Max number of S88 (MAX_S88-1)
+#define S88_POSITIONS 16
+
+#define DEFAULT_READING_DELAY 2000
+
 // document
 #define MAGIC_STRING QString("Fitxer de dades del Tren Digital")
 #define MAGIC_NUMBER (qint32)0x00110011

@@ -391,6 +391,8 @@ void MainWindow::onSystemSetup()
         systemSetup->setPluginNames(m_pluginNames, "");
     }
 
+    systemSetup->setReadingDelay(m_readingDelay);
+
     if (systemSetup->exec() == QDialog::Accepted)
     {
         if (g_interface == NULL || g_interface->name() != systemSetup->pluginName())
@@ -401,6 +403,13 @@ void MainWindow::onSystemSetup()
 
         // save dialog settings (general an plugin ones) to our interface
         systemSetup->saveSettings(g_interface);
+
+        m_readingDelay = systemSetup->readingDelay();
+
+        if (m_pScanFeedbackModulesWorker != NULL)
+        {
+            m_pScanFeedbackModulesWorker->setReadingDelay(m_readingDelay);
+        }
 
         // save our new plugin settings to disk
         saveInterfaceSettings();
@@ -631,6 +640,8 @@ void MainWindow::loadInterfaceSettings()
             settings.value("ipPort", g_interface->m_ipPort);
             */
 
+            m_readingDelay = settings.value("reading_delay", DEFAULT_READING_DELAY).toInt();
+
             settings.endGroup();
         }
     }
@@ -679,6 +690,8 @@ void MainWindow::saveInterfaceSettings()
         settings.setValue("ipProtocol", g_interface->m_ipProtocol);
         settings.setValue("ipPort", g_interface->m_ipPort);
         */
+
+        settings.setValue("reading_delay", m_readingDelay);
 
         settings.endGroup();
     }
@@ -963,7 +976,7 @@ void MainWindow::startReadingFeedbackModules()
     if (g_interface != NULL)
     {
         m_pScanFeedbackModulesThread = new QThread;
-        m_pScanFeedbackModulesWorker = new ScanFeedbackModules(0, g_interface);
+        m_pScanFeedbackModulesWorker = new ScanFeedbackModules(0, g_interface, m_readingDelay);
 
         if (m_pScanFeedbackModulesThread != NULL &&
             m_pScanFeedbackModulesWorker != NULL)

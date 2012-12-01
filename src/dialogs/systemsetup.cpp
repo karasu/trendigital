@@ -28,12 +28,22 @@ SystemSetup::SystemSetup(QWidget *parent) :
     ui->baudRate->insertItems(0, transferSpeeds);
 
     ui->dial->setMinimum(0);
-    ui->dial->setMaximum(2000);
+    ui->dial->setMaximum(4000);
 }
 
 QString SystemSetup::pluginName()
 {
     return ui->digitalSystem->currentText();
+}
+
+int SystemSetup::readingDelay()
+{
+    return ui->dial->value();
+}
+
+void SystemSetup::setReadingDelay(int value)
+{
+    ui->dial->setValue(value);
 }
 
 void SystemSetup::setPluginNames(QStringList pluginNameList, QString pluginName)

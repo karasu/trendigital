@@ -73,6 +73,8 @@ public:
 
     bool m_programsPaused;
 
+    int m_readingDelay; // fb modules reading delay
+
 private:
     Ui::MainWindow *ui;
 
